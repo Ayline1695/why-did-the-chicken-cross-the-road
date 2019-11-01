@@ -3,9 +3,9 @@
 function Game() {
     this.canvas = null;
     this.ctx = null;
-    this.otherSide = null;
     this.obstacles = [];
     this.player = null;
+    this.otherSide = null;
     this.gameIsOver = false;
     this.gameIsWon = false;
     this.gameScreen = null;
@@ -37,7 +37,7 @@ Game.prototype.win = function() {
 }
 
 
-Game.prototype.removeGameScreen = function() {
+Game.prototype.destroyGameScreen = function() {
 };
 
 

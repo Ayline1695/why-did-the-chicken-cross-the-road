@@ -1,7 +1,7 @@
 # Why did the chicken cross the road?
 
 ## Description
-"Why did the chicken cross the road? To get to other side..." is a [common riddle joke](https://en.wikipedia.org/wiki/Why_did_the_chicken_cross_the_road), and a 1994 video game by Jim Fowler.
+"Why did the chicken cross the road? To get to other side..." is a [common riddle joke](https://en.wikipedia.org/wiki/Why_did_the_chicken_cross_the_road), and a 1994 [video game](https://archive.org/details/WhyDidTheChickenCrosstheRoadTheVideoGame_1020) by Jim Fowler.
 The object of the game is to direct an adventurous chicken to the other side of a busy road. The player must avoid several different kinds of vehicules to prevent our chicken to die tragically. 
 
 
@@ -9,14 +9,6 @@ The object of the game is to direct an adventurous chicken to the other side of 
 A chicken that can move in 4 directions and has to be directed to the other side of the screen without touching any moving obstacles. 
 The game is over when the player collides more than 2 times with an obstacle. 
 The game is won whenever the player makes it to the other side.
-
-
-## Backlog
-- Time limit (must cross in less than 2 min)
-- Space limit (looses a life if leaves the screen)
-- Bonus life (extra life if eats a randomly generated corn)
-- Sounds and visual effects (when collides, looses or wins)
-- User registration and scoreboard (to compete again other players)
 
 
 ## Data structure
@@ -125,6 +117,14 @@ The game is won whenever the player makes it to the other side.
 - Check game result in game.js
 
 
+## Backlog
+- Time limit (must cross in less than 2 min)
+- Space limit (looses a life if leaves the screen)
+- Bonus life (extra life if eats a randomly generated corn)
+- Sounds and visual effects (when collides, looses or wins)
+- User registration and scoreboard (to compete again other players)
+
+
 ## Links
 
 ### Trello
@@ -132,11 +132,10 @@ The game is won whenever the player makes it to the other side.
 
 
 ### Git
-URls for the project repo and deploy
 [Link Repo](https://github.com/caprosset/why-did-the-chicken-cross-the-road)
-[Link Deploy](http://github.com)
+[Link Deploy](http://github.com) - not available yet
 
 
 ### Slides
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](http://slides.com) - not available yet
