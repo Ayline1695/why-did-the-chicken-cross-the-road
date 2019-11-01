@@ -39,22 +39,24 @@ function main() {
     function createGameScreen() {
         var gameScreen = buildDom(`
             <main class="game container">
-            <header>
-                <div class="lives">
-                <span class="label">Lives:</span>
-                <span class="value"></span>
+                <div class="canvas-container">
+                    <canvas></canvas>
                 </div>
-                <div class="score">
-                <span class="label">Score:</span>
-                <span class="value"></span>
-                </div>
-            </header>
-            <div class="canvas-container">
-                <canvas></canvas>
-            </div>
+                <footer>
+                    <div class="lives">
+                        <span class="label">Lives:</span>
+                        <span class="value"></span>
+                    </div>
+                    <div class="timer">
+                        <span class="label">Time:</span>
+                        <span class="value"></span>
+                    </div>
+                </footer>
             </main>
         `);
+
         document.body.appendChild(gameScreen);
+
         return gameScreen;
     }
 
@@ -87,6 +89,8 @@ function main() {
 
         // then print the game screen
         game = createGameScreen();
+
+        game.start();
     }
 
     function endGame() {
