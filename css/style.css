@@ -1,0 +1,34 @@
+/* ---- reset ---- */
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ---- layout ---- */
+
+html, body {
+    height: 100%;
+}
+
+/*
+.container {
+    margin: 0 20px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 728px;
+        margin: 0 auto;
+    }
+}
+*/

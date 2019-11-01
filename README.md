@@ -99,7 +99,7 @@ The game is won whenever the player makes it to the other side.
 - gameScreen
   - Game running while lives > 0
   - Goes to gameoverScreen if lives < 0
-  - Goes to winScreen if Players x position < goalLine
+  - Goes to winScreen if Players x position <= goalLine
 - gameoverScreen
   - Shows Game Over message and Restart button
   - Goes back to Game Screen when Restart button is clicked
