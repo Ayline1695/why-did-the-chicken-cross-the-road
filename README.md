@@ -75,13 +75,13 @@ The game is won whenever the player makes it to the other side.
 - width
 - height
 - image
-- direction
+- row
 - speed
+- direction
 
 **Methods**
-- updatePosition
-- isInsideScreen
-- draw 
+- draw
+- move
 
 
 ## States and States Transitions
