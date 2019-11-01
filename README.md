@@ -20,35 +20,40 @@ The game is won whenever the player makes it to the other side.
 
 
 ## Data structure
-1.index.html
-2.main.js
-3.game.js
-4.player.js
-5.obstacle.js
+1. index.html
+2. main.js
+3. game.js
+4. player.js
+5. obstacle.js
 
 ### 1. index.html file
 
 ### 2. Main file
 
 - buildDom
-- createSplashScreen
-- createGameScreen
-- createGameOverScreen
-- createWinScreen
+- createStartScreen / removeStartScreen
+- createGameScreen / removeGameScreen
+- createGameOverScreen / removeGameOverScreen
+- createWinScreen / removeWinScreen
+- startGame / endGame
 
 ### 3. Game Constructor
 
 **Properties**
+- canvas
+- ctx
 - player
 - obstacles
-- score
+- goalLine
+- timeScore
 
 **Methods**
 - start
 - checkCollision
-- updateScore
+- checkOtherSide
 - gameOver
 - win
+- updateScore
 
 ### 4. Player Constructor
 
@@ -63,9 +68,12 @@ The game is won whenever the player makes it to the other side.
 - lives
 
 **Methods**
-- draw
-- move
+- setDirection
 - updateLives
+- didCollide
+- handleScreenCollision
+- removeLife
+- draw
 
 ### 5. Obstacle Constructor
 
@@ -79,19 +87,42 @@ The game is won whenever the player makes it to the other side.
 - speed
 
 **Methods**
-- move
-- draw
+- updatePosition
+- isInsideScreen
+- draw 
 
 
-## States y States Transitions
-- splashScreen
+## States and States Transitions
+- startScreen
+  - Start the game
+  - Goes to gameScreen when Start button is clicked
 - gameScreen
+  - Game running while lives > 0
+  - Goes to gameoverScreen if lives < 0
+  - Goes to winScreen if Players x position < goalLine
 - gameoverScreen
+  - Shows Game Over message and Restart button
+  - Goes back to Game Screen when Restart button is clicked
 - winScreen
+  - Shows Win message, time score and Restart button
+  - Goes back to Game Screen when Restart button is clicked
 
 
 ## Tasks
-// to be completed
+- Setup git & GitHub
+- Create and connect files: main.js, player.js, obstacle.js, 
+- BuildDom in main.js
+- Create 4 screens in main.js
+- Create screen transitions in main.js
+- Create Game constructor
+- Create loop in game.js
+- Create Player constructor
+- Create Obstacle constructor
+- Draw obstacles in game.js
+- Move obstacles in game.js
+- Move player  in game.js
+- Check Collisions  in game.js
+- Check game result in game.js
 
 
 ## Links
