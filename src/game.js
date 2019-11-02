@@ -25,26 +25,68 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('width', 600);
     this.canvas.setAttribute('height', 600);
 
+    this.player = new Player(this.canvas, this.ctx);
+
+    // Add event listener for moving the player
+    this.handleKeyDown = function(event) {
+        if (event.key === 'ArrowUp') {
+            this.player.setDirection('up');
+            console.log('UP');
+        } else if (event.key === 'ArrowDown') {
+            this.player.setDirection('down');
+            console.log('DOWN');
+        } else if (event.key === 'ArrowLeft') {
+            this.player.setDirection('left');
+            console.log('LEFT');
+        } else if (event.key === 'ArrowRight') {
+            this.player.setDirection('right');
+            console.log('RIGHT');
+        }
+    };
+    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+
     // Start the game loop
     this.startLoop();
 }
 
 
 Game.prototype.startLoop = function() {
-    // Create instances of player and obstacles
-    this.player = new Player(this.canvas, this.ctx);
-    console.log('Im the player >>>', this.player)
+
     this.createObstacles();
 
     var loop = function() {
         console.log('in loop');
 
-        this.player.draw();
+        // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
+
+        // 0. Our player was already created - via `game.start()`
+
+        // 1. Obstacles are already created
+
+        // 2. Check if player had hit any obstacle (check all obstacles)
+        // this.checkCollisions();
+
+        // 3. Check if player is going off the screen
+        // this.player.handleScreenCollision();
+
+        // 4. Move existing obstacles
+
+        // 2. CLEAR THE CANVAS
+        this.clearCanvas();
+
+        // 3. UPDATE THE CANVAS
+        // if(!this.player) {
+            this.player.draw();
+        // }
 
         window.requestAnimationFrame(loop);
     }.bind(this);
 
       window.requestAnimationFrame(loop);
+}
+
+Game.prototype.clearCanvas = function () { 
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }
 
 
