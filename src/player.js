@@ -1,16 +1,21 @@
 'use strict';
 
 
-function Player(canvas, ctx, lives) {
+function Player(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
-    this.lives = lives;
-    this.size = 20;
+    this.lives = 3;
+    this.size = 50;
     this.x = canvas.width / 2;
-    this.y = canvas.height;
+    this.y = 550;
     this.direction = 0;
-    this.speed = 10;
+    this.timeScore = 0;
 }
+
+Player.prototype.draw = function() {
+    this.ctx.fillStyle = '#66D3FA'; 
+    this.ctx.fillRect(this.x, this.y, this.size, this.size); // fillRect(x, y, width, height)
+};
 
 
 Player.prototype.setDirection = function(direction) {
@@ -29,5 +34,3 @@ Player.prototype.removeLife = function() {
 };
 
 
-Player.prototype.draw = function() {
-};

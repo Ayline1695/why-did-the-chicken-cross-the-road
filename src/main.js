@@ -9,10 +9,9 @@ function buildDom(htmlString) {
 
 
 function main() {
-    var game; // instance of the Game
     var startScreen; 
-    var gameOverScreen;
-    var winScreen;
+    // var gameOverScreen;
+    // var winScreen;
 
 
     // -- start screen
@@ -27,7 +26,9 @@ function main() {
         document.body.appendChild(startScreen);
 
         var startButton = startScreen.querySelector('button');
-        startButton.addEventListener('click', startGame);
+        startButton.addEventListener('click', function() {
+            startGame();
+        });
     }
 
     function removeStartScreen() {
@@ -75,7 +76,7 @@ function main() {
     }
 
 
-    
+
     // -- win screen
     function createWinScreen(timer) {
     }
@@ -90,7 +91,8 @@ function main() {
         removeStartScreen();
 
         // then print the game screen
-        game = createGameScreen();
+        var game = new Game();
+        game.gameScreen = createGameScreen();
 
         game.start();
     }
