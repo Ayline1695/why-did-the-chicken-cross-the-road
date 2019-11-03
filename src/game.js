@@ -10,6 +10,8 @@ function Game() {
     this.gameIsWon = false;
     this.gameScreen = null;
     this.timer = 0;
+    this.background = new Image();
+    this.background.src = "../assets/img/canvas-background.jpg";
 }
 
 
@@ -56,13 +58,13 @@ Game.prototype.startLoop = function() {
     var loop = function() {
         // console.log('in loop');
 
-        // Update the canvas with the state of player and obstacles
-        this.updateCanvas(); 
-
         // Clear the canvas
         this.clearCanvas();
 
-        // Draw the initial player and obstacles
+         // Update the canvas with the state of player and obstacles
+         this.updateCanvas(); 
+
+        // Draw the player and obstacles
         this.drawCanvas()
 
         // Check if player had hit any obstacle (check all obstacles)
@@ -93,6 +95,10 @@ Game.prototype.updateCanvas = function () {
     this.obstacles.forEach(function (obstacle) { 
         obstacle.move();
     });
+
+    // Add background image to canvas area
+    this.ctx.drawImage(this.background, 0, 0, 600, 600); 
+    console.log('IM THE BACKGROUND');
 }
 
 
@@ -102,21 +108,21 @@ Game.prototype.clearCanvas = function () {
 
 
 Game.prototype.createObstacles = function () {
-    // Canvas width divided by the number of obstacles and multiply for 200 (number of elements necesaries to keep up three lives)
+    // Canvas width divided by the number of obstacles and multiply for 200 (number of elements needed to keep up with 3 lives)
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 6 / 2, 1, -1, 37, 0 + i, 540)); // (canvas, speed, row, direction, width, x, y)
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 6 / 2, 1, -1, 60, 0 + i, 490)); // (canvas, ctx, speed, row, direction, width, x, y)
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 3 / 2, 2, 1, 37, 550 - i, 490));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 3 / 2, 2, 1, 60, 550 - i, 430));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 4 / 2, 3, -1, 37, 0 + i, 440));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 4 / 2, 3, -1, 60, 0 + i, 370));
     }
 
     for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 13 / 2, 4, 1, 37, 630 - i, 390));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 10 / 2, 4, 1, 60, 630 - i, 310));
     }
 }
 
