@@ -124,7 +124,7 @@ Game.prototype.createObstacles = function () {
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 2, 1, 550 - i, 420));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 2, 1, 550 - i, 420));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
@@ -132,7 +132,7 @@ Game.prototype.createObstacles = function () {
     }
 
     for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 4, 1, 630 - i, 300));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 4, 1, 630 - i, 300));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
@@ -140,7 +140,7 @@ Game.prototype.createObstacles = function () {
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 6, 1, 550 - i, 180));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 6, 1, 550 - i, 180));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {

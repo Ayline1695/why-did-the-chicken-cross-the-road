@@ -4,7 +4,8 @@ function Player(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
     this.lives = 3;
-    this.size = 60;
+    this.width = 30;
+    this.height = 60;
     this.x = canvas.width / 2.2;
     this.y = canvas.height - 60;
     this.direction = 'up';
@@ -41,7 +42,7 @@ Player.prototype.draw = function() {
             // console.log('IM HEADING WEST');
             break;
     }
-    this.ctx.drawImage(this.playerImage, this.x, this.y, this.size, this.size);
+    this.ctx.drawImage(this.playerImage, this.x, this.y, this.width, this.height);
 };
 
 
@@ -52,22 +53,22 @@ Player.prototype.setDirection = function(direction) {
     switch (direction) { 
         case "up":
             if (this.y > 0) { 
-                this.y -= this.size;
+                this.y -= this.height;
             }
             break;
         case "down":
-            if (this.y < this.canvas.height - this.size) { 
-                this.y += this.size;
+            if (this.y < this.canvas.height - this.height) { 
+                this.y += this.height;
             }
             break;
         case "left":
             if (this.x > 0) { 
-                this.x -= this.size;
+                this.x -= this.width;
             }
             break;
         case "right":
-            if (this.x < this.canvas.width - this.size) { 
-                this.x += this.size;
+            if (this.x < this.canvas.width - this.width) { 
+                this.x += this.width;
             }
             break;
     }
@@ -76,24 +77,25 @@ Player.prototype.setDirection = function(direction) {
 
 Player.prototype.didCollide = function(obstacle) {
     var playerLeft = this.x;
-    var playerRight = this.x + this.size;
+    var playerRight = this.x + this.width;
     var playerTop = this.y;
-    var playerBottom = this.y + this.size;
+    var playerBottom = this.y + this.height;
 
     var obstacleLeft = obstacle.x;
-    var obstacleRight = obstacle.x + obstacle.size;
+    var obstacleRight = obstacle.x + obstacle.width;
     var obstacleTop = obstacle.y;
-    var obstacleBottom = obstacle.y + obstacle.size;
+    var obstacleBottom = obstacle.y + obstacle.height;
 
-    var crossRight = obstacleLeft <= playerRight && obstacleLeft >= playerLeft;
-    var crossLeft = obstacleRight >= playerLeft && obstacleRight <= playerRight;
-    var crossTop = obstacleBottom >= playerTop && obstacleBottom <= playerBottom;
-    var crossBottom = obstacleTop <= playerBottom && obstacleTop >= playerTop;
+    var crossRight = obstacleLeft < playerRight;
+    var crossLeft = obstacleRight > playerLeft;
+    var crossTop = obstacleBottom > playerTop;
+    var crossBottom = obstacleTop < playerBottom;
 
-    if ((crossRight || crossLeft) && (crossBottom || crossTop)) {
+    if ((crossRight && crossLeft) && (crossTop && crossBottom)) {
         return true;
+    } else {
+        return false;
     }
-    return false;    
 };
 
 
