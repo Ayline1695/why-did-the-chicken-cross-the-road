@@ -25,8 +25,6 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('width', 600);
     this.canvas.setAttribute('height', 600);
 
-    this.player = new Player(this.canvas, this.ctx);
-
     // Add event listener for moving the player
     this.handleKeyDown = function(event) {
         if (event.key === 'ArrowUp') {
@@ -51,39 +49,52 @@ Game.prototype.start = function() {
 
 
 Game.prototype.startLoop = function() {
-
+    // Create instances of Player and Obstacle
+    this.player = new Player(this.canvas, this.ctx);
     this.createObstacles();
 
     var loop = function() {
-        console.log('in loop');
+        // console.log('in loop');
 
-        // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
+        // Update the canvas with the state of player and obstacles
+        this.updateCanvas(); 
 
-        // 0. Our player was already created - via `game.start()`
-
-        // 1. Obstacles are already created
-
-        // 2. Check if player had hit any obstacle (check all obstacles)
-        // this.checkCollisions();
-
-        // 3. Check if player is going off the screen
-        // this.player.handleScreenCollision();
-
-        // 4. Move existing obstacles
-
-        // 2. CLEAR THE CANVAS
+        // Clear the canvas
         this.clearCanvas();
 
-        // 3. UPDATE THE CANVAS
-        // if(!this.player) {
-            this.player.draw();
-        // }
+        // Draw the initial player and obstacles
+        this.drawCanvas()
 
+        // Check if player had hit any obstacle (check all obstacles)
+        // this.checkCollisions();
+        
         window.requestAnimationFrame(loop);
     }.bind(this);
 
-      window.requestAnimationFrame(loop);
+    window.requestAnimationFrame(loop);
 }
+
+
+Game.prototype.drawCanvas = function () {
+    // Draw obstacles
+    this.obstacles.forEach(function (obstacle) { 
+        obstacle.draw();
+    });
+
+    // Draw player
+    // if(!this.player) {
+        this.player.draw();
+    // }
+}
+
+
+Game.prototype.updateCanvas = function () {
+    // Update obstacles position
+    this.obstacles.forEach(function (obstacle) { 
+        obstacle.move();
+    });
+}
+
 
 Game.prototype.clearCanvas = function () { 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -93,19 +104,19 @@ Game.prototype.clearCanvas = function () {
 Game.prototype.createObstacles = function () {
     // Canvas width divided by the number of obstacles and multiply for 200 (number of elements necesaries to keep up three lives)
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, 6 / 2, 1, -1, 37, 0 + i, 540)); // (canvas, speed, row, direction, width, x, y)
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 6 / 2, 1, -1, 37, 0 + i, 540)); // (canvas, speed, row, direction, width, x, y)
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, 3 / 2, 2, 1, 37, 550 - i, 490));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 3 / 2, 2, 1, 37, 550 - i, 490));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, 4 / 2, 3, -1, 37, 0 + i, 440));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 4 / 2, 3, -1, 37, 0 + i, 440));
     }
 
     for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, 13 / 2, 4, 1, 37, 630 - i, 390));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 13 / 2, 4, 1, 37, 630 - i, 390));
     }
 }
 
