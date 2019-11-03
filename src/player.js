@@ -5,7 +5,7 @@ function Player(canvas, ctx) {
     this.ctx = ctx;
     this.lives = 3;
     this.size = 60;
-    this.x = canvas.width / 2;
+    this.x = canvas.width / 2.2;
     this.y = canvas.height - 60;
     this.direction = 'up';
     this.timeScore = 0;

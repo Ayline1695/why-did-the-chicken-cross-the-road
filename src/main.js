@@ -9,8 +9,9 @@ function buildDom(htmlString) {
 
 
 function main() {
+    var game; // instance of the Game
     var startScreen; 
-    // var gameOverScreen;
+    var gameOverScreen;
     // var winScreen;
 
 
@@ -70,9 +71,24 @@ function main() {
 
     // -- game over screen
     function createGameOverScreen() {
+        gameOverScreen = buildDom(`
+        <main>
+            <h1>Game over</h1>
+            <p>You just killed an innocent chicken 3 times</p>
+            <button>Restart</button>
+        </main>
+    `);
+
+        var button = gameOverScreen.querySelector('button');
+        button.addEventListener('click', startGame); 
+        
+        document.body.appendChild(gameOverScreen);
     }
 
     function removeGameOverScreen() {
+        if (gameOverScreen) {
+            gameOverScreen.remove();
+        }
     }
 
 
@@ -90,17 +106,27 @@ function main() {
         // first remove the start screen
         removeStartScreen();
 
+        // later remove the gameOverScreen
+        removeGameOverScreen();
+
         // then print the game screen
-        var game = new Game();
+        game = new Game();
         game.gameScreen = createGameScreen();
 
+        // start the game
         game.start();
+
+        // end the game
+        game.passGameResult(function() {
+            endGame();
+        });
     }
 
     function endGame() {
+        console.log('GAME ENDED');
         removeGameScreen();
+        createGameOverScreen();
     }
-
 
     
     // -- initialize startScreen on initial start
