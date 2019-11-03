@@ -102,5 +102,5 @@ Player.prototype.handleScreenCollision = function() {
 
 
 Player.prototype.removeLife = function() {
+    this.lives -= 1;
 };
-

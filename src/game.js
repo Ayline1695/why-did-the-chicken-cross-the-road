@@ -27,6 +27,9 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('width', 600);
     this.canvas.setAttribute('height', 600);
 
+    // Save reference to the lives elements
+    this.livesElement = this.gameScreen.querySelector('.lives .value');
+
     // Add event listener for moving the player
     this.handleKeyDown = function(event) {
         if (event.key === 'ArrowUp') {
@@ -71,6 +74,8 @@ Game.prototype.startLoop = function() {
         this.checkCollisions();
         
         window.requestAnimationFrame(loop);
+
+        this.updateGameStats();
     }.bind(this);
 
     window.requestAnimationFrame(loop);
@@ -149,6 +154,7 @@ Game.prototype.checkCollisions = function() {
     if (this.player.didCollide(obstacle)) {
         console.log('COLLISION');
         this.player.removeLife();
+        console.log('Lives:', this.player.lives);
         // Make the player disappear when collided (move it off screen to the left)
         this.player.x = 0 - this.player.size;
 
@@ -177,4 +183,8 @@ Game.prototype.destroyGameScreen = function() {
 
 
 Game.prototype.timeCount = function() {
+};
+
+Game.prototype.updateGameStats = function() {
+    this.livesElement.innerHTML = this.player.lives;
 };
