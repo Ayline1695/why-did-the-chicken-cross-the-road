@@ -4,9 +4,9 @@ function Player(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
     this.lives = 3;
-    this.size = 40;
+    this.size = 60;
     this.x = canvas.width / 2;
-    this.y = canvas.height - 50;
+    this.y = canvas.height - 60;
     this.direction = 'up';
     this.timeScore = 0;
     this.playerImageUp = new Image();
@@ -74,7 +74,26 @@ Player.prototype.setDirection = function(direction) {
 };
 
 
-Player.prototype.didCollide = function(enemy) {
+Player.prototype.didCollide = function(obstacle) {
+    var playerLeft = this.x;
+    var playerRight = this.x + this.size;
+    var playerTop = this.y;
+    var playerBottom = this.y + this.size;
+
+    var obstacleLeft = obstacle.x;
+    var obstacleRight = obstacle.x + obstacle.size;
+    var obstacleTop = obstacle.y;
+    var obstacleBottom = obstacle.y + obstacle.size;
+
+    var crossRight = obstacleLeft <= playerRight && obstacleLeft >= playerLeft;
+    var crossLeft = obstacleRight >= playerLeft && obstacleRight <= playerRight;
+    var crossTop = obstacleBottom >= playerTop && obstacleBottom <= playerBottom;
+    var crossBottom = obstacleTop <= playerBottom && obstacleTop >= playerTop;
+
+    if ((crossRight || crossLeft) && (crossBottom || crossTop)) {
+        return true;
+    }
+    return false;    
 };
 
 

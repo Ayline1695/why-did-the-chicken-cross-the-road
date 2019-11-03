@@ -1,13 +1,13 @@
 'use strict';
 
-function Obstacle(canvas, ctx, speed, row, direction, width, x, y) {
+function Obstacle(canvas, ctx, speed, row, direction, x, y) {
     this.canvas = canvas;
 	this.ctx = ctx;
 	this.speed = speed;
 	this.row = row;
 	this.direction = direction;
-	this.width = width;
-	this.height = 30;
+	this.width = 80;
+	this.height = 60;
     this.x = x;
 	this.y = y;
 	this.obstacleImage = new Image();
@@ -15,10 +15,14 @@ function Obstacle(canvas, ctx, speed, row, direction, width, x, y) {
 	this.obstacleImage2 = new Image();
 	this.obstacleImage3 = new Image();
 	this.obstacleImage4 = new Image();
+	this.obstacleImage5 = new Image();
+	this.obstacleImage6 = new Image();
 	this.obstacleImage1.src = "../assets/img/truck.png";
 	this.obstacleImage2.src = "../assets/img/truck-reversed.png";
 	this.obstacleImage3.src = "../assets/img/shark.png";
-	this.obstacleImage4.src = "../assets/img/crocodile.png";
+	this.obstacleImage4.src = "../assets/img/shark-reversed.png";
+	this.obstacleImage5.src = "../assets/img/crocodile.png";
+	this.obstacleImage6.src = "../assets/img/crocodile-reversed.png";
 }
 
 
@@ -28,9 +32,13 @@ Obstacle.prototype.draw = function() {
 		this.obstacleImage = this.obstacleImage1;
 	} else if (this.row === 2 || this.row === 4) {
 		this.obstacleImage = this.obstacleImage2;
-	} else if (this.row === 5 || this.row === 8) {
+	} else if (this.row === 5) {
 		this.obstacleImage = this.obstacleImage3;
-	} else if (this.row === 6 || this.row === 7) {
+	} else if (this.row === 6) {
+		this.obstacleImage = this.obstacleImage6;
+	} else if ( this.row === 7) {
+		this.obstacleImage = this.obstacleImage5;
+	} else if ( this.row === 8) {
 		this.obstacleImage = this.obstacleImage4;
 	}
 	this.ctx.drawImage(this.obstacleImage, this.x, this.y, this.width, this.height);

@@ -68,7 +68,7 @@ Game.prototype.startLoop = function() {
         this.drawCanvas()
 
         // Check if player had hit any obstacle (check all obstacles)
-        // this.checkCollisions();
+        this.checkCollisions();
         
         window.requestAnimationFrame(loop);
     }.bind(this);
@@ -98,7 +98,6 @@ Game.prototype.updateCanvas = function () {
 
     // Add background image to canvas area
     this.ctx.drawImage(this.background, 0, 0, 600, 600); 
-    console.log('IM THE BACKGROUND');
 }
 
 
@@ -110,24 +109,54 @@ Game.prototype.clearCanvas = function () {
 Game.prototype.createObstacles = function () {
     // Canvas width divided by the number of obstacles and multiply for 200 (number of elements needed to keep up with 3 lives)
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 6 / 2, 1, -1, 60, 0 + i, 490)); // (canvas, ctx, speed, row, direction, width, x, y)
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 1, -1, 0 + i, 480)); // (canvas, ctx, speed, row, direction, x, y)
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 3 / 2, 2, 1, 60, 550 - i, 430));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 2, 1, 550 - i, 420));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 4 / 2, 3, -1, 60, 0 + i, 370));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 3, -1, 0 + i, 360));
     }
 
     for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 10 / 2, 4, 1, 60, 630 - i, 310));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 4, 1, 630 - i, 300));
+    }
+
+    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 5, -1, 0 + i, 240)); // (canvas, ctx, speed, row, direction, width, x, y)
+    }
+
+    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 6, 1, 550 - i, 180));
+    }
+
+    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 7, -1, 0 + i, 120));
+    }
+
+    for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 8, 1, 630 - i, 60));
     }
 }
 
 
 Game.prototype.checkCollisions = function() {
+    //check collision with obstacles
+    this.obstacles.forEach(function(obstacle) {
+
+    if (this.player.didCollide(obstacle)) {
+        console.log('COLLISION');
+        this.player.removeLife();
+        // Make the player disappear when collided (move it off screen to the left)
+        this.player.x = 0 - this.player.size;
+
+        // if (this.player.lives === 0) {
+        //     this.gameOver();
+        // }
+    }
+  }, this);
 }
 
 
