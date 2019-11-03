@@ -9,7 +9,7 @@ function Game() {
     this.gameIsOver = false;
     this.gameIsWon = false;
     this.gameScreen = null;
-    this.timer = 0;
+    this.time = 0;
     this.background = new Image();
     this.background.src = "../assets/img/canvas-background.jpg";
 }
@@ -27,8 +27,9 @@ Game.prototype.start = function() {
     this.canvas.setAttribute('width', 600);
     this.canvas.setAttribute('height', 600);
 
-    // Save reference to the lives elements
+    // Save reference to the time and lives elements
     this.livesElement = this.gameScreen.querySelector('.lives .value');
+    this.timerElement = this.gameScreen.querySelector('.timer .value');
 
     // Add event listener for moving the player
     this.handleKeyDown = function(event) {
@@ -79,6 +80,8 @@ Game.prototype.startLoop = function() {
         if (!this.gameIsOver && !this.gameIsWon) {
             window.requestAnimationFrame(loop);
         }
+        this.timeCount();
+
         this.updateGameStats();
     }.bind(this);
 
@@ -185,6 +188,7 @@ Game.prototype.gameOver = function() {
     this.onGameOverCallback();
 }
 
+
 Game.prototype.gameWon = function() {
     // flag `gameIsWon = true` stops the loop
     this.gameIsWon = true;
@@ -192,6 +196,7 @@ Game.prototype.gameWon = function() {
     // call the gameOver function from `main` to show the right end screen
     this.onGameOverCallback();
 }
+
 
 Game.prototype.win = function() {
     if (this.player.y <= 40) {
@@ -208,7 +213,12 @@ Game.prototype.destroyGameScreen = function() {
 
 
 Game.prototype.timeCount = function() {
-};
+    this.time++;
+    if (this.time % 60 === 0) {
+        this.timerElement.innerHTML = this.time / 60;
+    }
+}
+
 
 Game.prototype.updateGameStats = function() {
     this.livesElement.innerHTML = this.player.lives;

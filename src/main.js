@@ -51,7 +51,7 @@ function main() {
                     </div>
                     <div class="timer">
                         <span class="label">Time:</span>
-                        <span class="value"></span>
+                        <span class="value">0</span>
                     </div>
                 </footer>
             </main>
@@ -94,7 +94,7 @@ function main() {
 
 
     // -- win screen
-    function createWinScreen(timer) {
+    function createWinScreen(timeScore) {
         winScreen = buildDom(`
         <main>
             <h1>Game won</h1>
@@ -106,6 +106,9 @@ function main() {
 
         var button = winScreen.querySelector('button');
         button.addEventListener('click', startGame); 
+
+        var span = winScreen.querySelector('span');
+        span.innerText = Math.floor(timeScore/60) + ' seconds';
         
         document.body.appendChild(winScreen);
     }
@@ -135,17 +138,17 @@ function main() {
 
         // end the game
         game.passGameResult(function() {
-            endGame();
+            endGame(game.time);
         });
     }
 
-    function endGame() {
+    function endGame(timeScore) {
         console.log('GAME ENDED');
         removeGameScreen();
 
         if(game.gameIsWon) {
             console.log('YOU ARE A WINNER');
-            createWinScreen();
+            createWinScreen(timeScore);
         } else {
             createGameOverScreen();
         }
