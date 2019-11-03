@@ -12,7 +12,7 @@ function main() {
     var game; // instance of the Game
     var startScreen; 
     var gameOverScreen;
-    // var winScreen;
+    var winScreen;
 
 
     // -- start screen
@@ -95,9 +95,25 @@ function main() {
 
     // -- win screen
     function createWinScreen(timer) {
+        winScreen = buildDom(`
+        <main>
+            <h1>Game won</h1>
+            <p>You are a chicken saver!!!</p>
+            <p>Your time: <span></span></p>
+            <button>Restart</button>
+        </main>
+    `);
+
+        var button = winScreen.querySelector('button');
+        button.addEventListener('click', startGame); 
+        
+        document.body.appendChild(winScreen);
     }
 
     function removeWinScreen() {
+        if (winScreen) {
+            winScreen.remove();
+        }
     }
 
 
@@ -106,8 +122,9 @@ function main() {
         // first remove the start screen
         removeStartScreen();
 
-        // later remove the gameOverScreen
+        // later remove the gameOverScreen / winScreen
         removeGameOverScreen();
+        removeWinScreen();
 
         // then print the game screen
         game = new Game();
@@ -125,7 +142,14 @@ function main() {
     function endGame() {
         console.log('GAME ENDED');
         removeGameScreen();
-        createGameOverScreen();
+
+        if(game.gameIsWon) {
+            console.log('YOU ARE A WINNER');
+            createWinScreen();
+        } else {
+            createGameOverScreen();
+        }
+        
     }
 
     

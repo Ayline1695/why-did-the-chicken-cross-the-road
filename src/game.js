@@ -64,23 +64,19 @@ Game.prototype.startLoop = function() {
         // Clear the canvas
         this.clearCanvas();
 
-         // Update the canvas with the state of player and obstacles
-         this.updateCanvas(); 
+        // Update the canvas with the state of player and obstacles
+        this.updateCanvas(); 
 
-        // Draw obstacles
-        this.obstacles.forEach(function (obstacle) { 
-            obstacle.draw();
-        });
-
-        // Draw player
-        // if(!this.player) {
-            this.player.draw();
-        // }
+        // Draw obstacles and player
+        this.drawCanvas(); 
 
         // Check if player had hit any obstacle (check all obstacles)
         this.checkCollisions();
+
+        // Check if player made it to the other side
+        this.win();
         
-        if (!this.gameIsOver) {
+        if (!this.gameIsOver && !this.gameIsWon) {
             window.requestAnimationFrame(loop);
         }
         this.updateGameStats();
@@ -90,15 +86,17 @@ Game.prototype.startLoop = function() {
 }
 
 
-// Game.prototype.drawCanvas = function () {
-//      // Draw obstacles
-//     this.obstacles.forEach(function (obstacle) { 
-//         obstacle.draw();
-//     });
+Game.prototype.drawCanvas = function () {
+     // Draw obstacles
+    this.obstacles.forEach(function (obstacle) { 
+        obstacle.draw();
+    });
 
-//     // Draw player
-//      this.player.draw();
-// }
+    // Draw player
+    // if(!this.player) {
+        this.player.draw();
+    // }
+}
 
 
 Game.prototype.updateCanvas = function () {
@@ -183,12 +181,24 @@ Game.prototype.gameOver = function() {
     // flag `gameIsOver = true` stops the loop
     this.gameIsOver = true;
 
-    // call the gameOver function from `main` to show the Game Over Screen
+    // call the gameOver function from `main` to show the right end screen
     this.onGameOverCallback();
 }
 
+Game.prototype.gameWon = function() {
+    // flag `gameIsWon = true` stops the loop
+    this.gameIsWon = true;
+
+    // call the gameOver function from `main` to show the right end screen
+    this.onGameOverCallback();
+}
 
 Game.prototype.win = function() {
+    if (this.player.y <= 40) {
+        console.log('YOU HAVE WON');
+        this.gameWon();
+        // this.buildGameOverScreen("win", this.player.score, this.name);
+    }
 }
 
 
