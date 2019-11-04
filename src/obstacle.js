@@ -17,12 +17,12 @@ function Obstacle(canvas, ctx, speed, row, direction, x, y) {
 	this.obstacleImage4 = new Image();
 	this.obstacleImage5 = new Image();
 	this.obstacleImage6 = new Image();
-	this.obstacleImage1.src = "../assets/img/truck.png";
-	this.obstacleImage2.src = "../assets/img/truck-reversed.png";
-	this.obstacleImage3.src = "../assets/img/shark.png";
-	this.obstacleImage4.src = "../assets/img/shark-reversed.png";
-	this.obstacleImage5.src = "../assets/img/crocodile.png";
-	this.obstacleImage6.src = "../assets/img/crocodile-reversed.png";
+	this.obstacleImage1.src = "./assets/img/truck.png";
+	this.obstacleImage2.src = "./assets/img/truck-reversed.png";
+	this.obstacleImage3.src = "./assets/img/shark.png";
+	this.obstacleImage4.src = "./assets/img/shark-reversed.png";
+	this.obstacleImage5.src = "./assets/img/crocodile.png";
+	this.obstacleImage6.src = "./assets/img/crocodile-reversed.png";
 }
 
 

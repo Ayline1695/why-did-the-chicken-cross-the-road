@@ -15,10 +15,10 @@ function Player(canvas, ctx) {
     this.playerImageDown = new Image();
     this.playerImageRight = new Image();
     this.playerImageLeft = new Image();
-    this.playerImageUp.src = "../assets/img/chicken-up.png";
-    this.playerImageDown.src = "../assets/img/chicken-down.png";
-    this.playerImageRight.src = "../assets/img/chicken-right.png";
-    this.playerImageLeft.src = "../assets/img/chicken-left.png";
+    this.playerImageUp.src = "./assets/img/chicken-up.png";
+    this.playerImageDown.src = "./assets/img/chicken-down.png";
+    this.playerImageRight.src = "./assets/img/chicken-right.png";
+    this.playerImageLeft.src = "./assets/img/chicken-left.png";
     this.playerImage = this.playerImageUp;
 }
 
