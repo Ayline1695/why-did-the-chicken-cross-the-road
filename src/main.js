@@ -45,10 +45,6 @@ function main() {
                     <canvas></canvas>
                 </div>
                 <footer>
-                    <div class="lives">
-                        <span class="label">Lives:</span>
-                        <span class="value"></span>
-                    </div>
                     <div class="timer">
                         <span class="label">Time:</span>
                         <span class="value">0</span>

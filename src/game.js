@@ -13,6 +13,8 @@ function Game() {
     this.timeScore = 0;
     this.background = new Image();
     this.background.src = "../assets/img/canvas-background.jpg";
+    this.lives = new Image();
+    this.lives.src = "../assets/img/corn.png";
 }
 
 
@@ -81,9 +83,12 @@ Game.prototype.startLoop = function() {
         if (!this.gameIsOver && !this.gameIsWon) {
             window.requestAnimationFrame(loop);
         }
-        this.timeCount();
+        
+        // Print lives icons
+        this.printLives(); 
 
-        this.updateGameStats();
+        // Print time in seconds
+        this.timeCount();
     }.bind(this);
 
     window.requestAnimationFrame(loop);
@@ -207,11 +212,6 @@ Game.prototype.win = function() {
 }
 
 
-Game.prototype.destroyGameScreen = function() {
-    this.gameScreen.remove();
-};
-
-
 Game.prototype.timeCount = function() {
     // count the loops
     this.loopCount++;
@@ -224,6 +224,21 @@ Game.prototype.timeCount = function() {
 }
 
 
-Game.prototype.updateGameStats = function() {
-    this.livesElement.innerHTML = this.player.lives;
+Game.prototype.printLives = function () { 
+    // print lives icons depending on how many lives are remaining
+    if (this.player.lives === 3) {
+        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 65, 555, 25, 30)
+    } else if (this.player.lives === 2) {
+        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+    } else {
+        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+    }
+}
+
+
+Game.prototype.destroyGameScreen = function() {
+    this.gameScreen.remove();
 };
