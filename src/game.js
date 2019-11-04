@@ -15,6 +15,7 @@ function Game() {
     this.background.src = "./assets/img/canvas-background.jpg";
     this.lives = new Image();
     this.lives.src = "./assets/img/corn.png";
+    this.bonusX = Math.floor(Math.random() * 500);
 }
 
 
@@ -59,6 +60,9 @@ Game.prototype.startLoop = function() {
     this.player = new Player(this.canvas, this.ctx);
     this.createObstacles();
 
+    // Create bonus instance
+    this.bonus = new Bonus(this.canvas, this.ctx, this.bonusX);
+    
     var loop = function() {
         // console.log('in loop');
 
@@ -74,6 +78,8 @@ Game.prototype.startLoop = function() {
         // Check if player had hit any obstacle or the screen on the left/right
         this.checkCollisions();
         this.checkTime();
+
+        this.checkWinBonus();
 
         // Check if player made it to the other side
         this.win();
@@ -104,6 +110,12 @@ Game.prototype.drawCanvas = function () {
     // if(!this.player) {
         this.player.draw();
     // }
+
+    // Draw bonus
+    if((this.timeScore > 1 && this.timeScore < 20)) {
+        this.bonus.draw();
+        console.log(this.bonus.x, this.bonus.y);
+    }
 }
 
 
@@ -260,3 +272,11 @@ Game.prototype.printLives = function () {
 Game.prototype.destroyGameScreen = function() {
     this.gameScreen.remove();
 };
+
+
+Game.prototype.checkWinBonus = function() {
+    if ((this.bonus.x === this.player.x && this.player.y === 480) && this.player.x !== 0) {
+        this.player.lives++;
+        console.log('GANO UNA VIDA')
+    }
+}

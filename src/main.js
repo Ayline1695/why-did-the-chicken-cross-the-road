@@ -31,11 +31,11 @@ function main() {
         startButton.addEventListener('click', startGame);
 
         // start the game on 'enter' keypress
-        document.body.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13) { // 13 is enter
-                startGame();
-            }
-        });
+        // document.body.addEventListener('keypress', function(event) {
+        //     if (event.keyCode === 13) { // 13 is enter
+        //         startGame();
+        //     }
+        // });
     }
 
     function removeStartScreen() {
@@ -84,11 +84,11 @@ function main() {
         button.addEventListener('click', startGame); 
 
         // restart the game on 'enter' keypress
-        document.body.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13) { // 13 is enter
-                startGame();
-            }
-        });
+        // document.body.addEventListener('keypress', function(event) {
+        //     if (event.keyCode === 13) { // 13 is enter
+        //         startGame();
+        //     }
+        // });
         
         document.body.appendChild(gameOverScreen);
     }
@@ -117,11 +117,11 @@ function main() {
         button.addEventListener('click', startGame); 
 
         // restart the game on 'enter' keypress
-        document.body.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13) { // 13 is enter
-                startGame();
-            }
-        });
+        // document.body.addEventListener('keypress', function(event) {
+        //     if (event.keyCode === 13) { // 13 is enter
+        //         startGame();
+        //     }
+        // });
 
         var span = winScreen.querySelector('span');
         span.innerText = timeScore + ' seconds';
