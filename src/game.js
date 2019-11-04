@@ -9,7 +9,8 @@ function Game() {
     this.gameIsOver = false;
     this.gameIsWon = false;
     this.gameScreen = null;
-    this.time = 0;
+    this.loopCount = 0;
+    this.timeScore = 0;
     this.background = new Image();
     this.background.src = "../assets/img/canvas-background.jpg";
 }
@@ -202,7 +203,6 @@ Game.prototype.win = function() {
     if (this.player.y <= 40) {
         console.log('YOU HAVE WON');
         this.gameWon();
-        // this.buildGameOverScreen("win", this.player.score, this.name);
     }
 }
 
@@ -213,9 +213,13 @@ Game.prototype.destroyGameScreen = function() {
 
 
 Game.prototype.timeCount = function() {
-    this.time++;
-    if (this.time % 60 === 0) {
-        this.timerElement.innerHTML = this.time / 60;
+    // count the loops
+    this.loopCount++;
+    if (this.loopCount % 60 === 0) { // every time we reach a second (considering that 60 loops = 1 second)
+        // convert the time in seconds
+        this.timeScore = Math.floor(this.loopCount / 60);
+        // print the seconds to the game screen
+        this.timerElement.innerHTML = this.timeScore + ' seconds';
     }
 }
 

@@ -108,7 +108,7 @@ function main() {
         button.addEventListener('click', startGame); 
 
         var span = winScreen.querySelector('span');
-        span.innerText = Math.floor(timeScore/60) + ' seconds';
+        span.innerText = timeScore + ' seconds';
         
         document.body.appendChild(winScreen);
     }
@@ -138,7 +138,7 @@ function main() {
 
         // end the game
         game.passGameResult(function() {
-            endGame(game.time);
+            endGame(game.timeScore);
         });
     }
 
