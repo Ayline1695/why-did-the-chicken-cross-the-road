@@ -8,7 +8,7 @@ html {
     box-sizing: inherit;
 }
 
-body {
+body, h1 {
     margin: 0;
     padding: 0;
 }
@@ -26,6 +26,13 @@ body {
 
 html, body {
     height: 100%;
+    background: #CCCCCC url("../assets/img/pixel-chicken.png");
+    background-size: 5%;
+}
+
+main.container {
+    display: flex;
+    justify-content: center;
 }
 
 .canvas-container {

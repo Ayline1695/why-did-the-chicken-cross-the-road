@@ -221,7 +221,7 @@ Game.prototype.gameWon = function() {
 
 
 Game.prototype.win = function() {
-    if (this.player.y <= 40) {
+    if (this.player.y < 40) {
         console.log('YOU HAVE WON');
         this.gameWon();
     }

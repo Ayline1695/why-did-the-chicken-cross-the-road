@@ -20,7 +20,7 @@ function main() {
         startScreen = buildDom(`
             <main>
                 <h1>Why did the chicken cross the road?</h1>
-                <button>Start</button>
+                <button type="submit">Start</button>
             </main>
         `);
 
@@ -69,7 +69,7 @@ function main() {
         <main>
             <h1>Game over</h1>
             <p>You just killed an innocent chicken 3 times</p>
-            <button>Restart</button>
+            <button type="submit">Restart</button>
         </main>
     `);
 
@@ -94,7 +94,7 @@ function main() {
             <h1>Game won</h1>
             <p>You are a chicken saver!!!</p>
             <p>Your time: <span></span></p>
-            <button>Restart</button>
+            <button type="submit">Restart</button>
         </main>
     `);
 
