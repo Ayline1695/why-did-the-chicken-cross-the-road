@@ -26,9 +26,15 @@ function main() {
 
         document.body.appendChild(startScreen);
 
+        // start the game on click
         var startButton = startScreen.querySelector('button');
-        startButton.addEventListener('click', function() {
-            startGame();
+        startButton.addEventListener('click', startGame);
+
+        // start the game on 'enter' keypress
+        document.body.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) { // 13 is enter
+                startGame();
+            }
         });
     }
 
@@ -73,8 +79,16 @@ function main() {
         </main>
     `);
 
+        // restart the game on 'click'
         var button = gameOverScreen.querySelector('button');
         button.addEventListener('click', startGame); 
+
+        // restart the game on 'enter' keypress
+        document.body.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) { // 13 is enter
+                startGame();
+            }
+        });
         
         document.body.appendChild(gameOverScreen);
     }
@@ -98,8 +112,16 @@ function main() {
         </main>
     `);
 
+        // restart the game on 'click'
         var button = winScreen.querySelector('button');
         button.addEventListener('click', startGame); 
+
+        // restart the game on 'enter' keypress
+        document.body.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13) { // 13 is enter
+                startGame();
+            }
+        });
 
         var span = winScreen.querySelector('span');
         span.innerText = timeScore + ' seconds';
