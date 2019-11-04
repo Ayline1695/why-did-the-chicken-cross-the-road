@@ -4,7 +4,8 @@ function Player(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
     this.lives = 3;
-    this.width = 30;
+    this.widthUD = 30; // chicken width when going Up and Down
+    this.widthLR = 45; // chicken width when going Left and Right
     this.height = 60;
     this.x = canvas.width / 2.2;
     this.y = canvas.height - 60;
@@ -28,21 +29,25 @@ Player.prototype.draw = function() {
         case "up":
             this.playerImage = this.playerImageUp;
             // console.log('IM HEADING NORTH');
+            this.ctx.drawImage(this.playerImage, this.x, this.y, this.widthUD, this.height);
             break;
         case "down":
             this.playerImage = this.playerImageDown;
             // console.log('IM HEADING SOUTH');
+            this.ctx.drawImage(this.playerImage, this.x, this.y, this.widthUD, this.height);
             break;
         case "right":
             this.playerImage = this.playerImageRight;
             // console.log('IM HEADING EAST');
+            this.ctx.drawImage(this.playerImage, this.x, this.y, this.widthLR, this.height);
             break;
         case "left":
             this.playerImage = this.playerImageLeft;
             // console.log('IM HEADING WEST');
+            this.ctx.drawImage(this.playerImage, this.x, this.y, this.widthLR, this.height);
             break;
     }
-    this.ctx.drawImage(this.playerImage, this.x, this.y, this.width, this.height);
+    
 };
 
 
@@ -63,12 +68,12 @@ Player.prototype.setDirection = function(direction) {
             break;
         case "left":
             if (this.x > 0) { 
-                this.x -= this.width;
+                this.x -= this.widthLR;
             }
             break;
         case "right":
-            if (this.x < this.canvas.width - this.width) { 
-                this.x += this.width;
+            if (this.x < this.canvas.width - this.widthLR) { 
+                this.x += this.widthLR;
             }
             break;
     }
@@ -77,7 +82,7 @@ Player.prototype.setDirection = function(direction) {
 
 Player.prototype.didCollide = function(obstacle) {
     var playerLeft = this.x;
-    var playerRight = this.x + this.width;
+    var playerRight = this.x + this.widthLR;
     var playerTop = this.y;
     var playerBottom = this.y + this.height;
 
