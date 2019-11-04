@@ -51,7 +51,7 @@ Player.prototype.draw = function() {
 };
 
 
-Player.prototype.setDirection = function(direction) {
+Player.prototype.move = function(direction) {
     
     this.direction = direction;
 
@@ -80,7 +80,7 @@ Player.prototype.setDirection = function(direction) {
 };
 
 
-Player.prototype.didCollide = function(obstacle) {
+Player.prototype.collidedWithObstacle = function(obstacle) {
     var playerLeft = this.x;
     var playerRight = this.x + this.widthLR;
     var playerTop = this.y;
@@ -104,8 +104,17 @@ Player.prototype.didCollide = function(obstacle) {
 };
 
 
-Player.prototype.handleScreenCollision = function() {
+Player.prototype.collidedWithScreen = function() {
+    var screenLeft = 0;
+    var screenRight = this.canvas.width;
+
+    if (this.x < screenLeft || (this.x + this.widthLR) > screenRight) {
+        return true;
+    } else {
+        return false;
+    }
 };
+
 
 
 Player.prototype.removeLife = function() {

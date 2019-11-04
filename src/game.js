@@ -34,16 +34,16 @@ Game.prototype.start = function() {
     // Add event listener for moving the player
     this.handleKeyDown = function(event) {
         if (event.key === 'ArrowUp') {
-            this.player.setDirection('up');
+            this.player.move('up');
             console.log('UP');
         } else if (event.key === 'ArrowDown') {
-            this.player.setDirection('down');
+            this.player.move('down');
             console.log('DOWN');
         } else if (event.key === 'ArrowLeft') {
-            this.player.setDirection('left');
+            this.player.move('left');
             console.log('LEFT');
         } else if (event.key === 'ArrowRight') {
-            this.player.setDirection('right');
+            this.player.move('right');
             console.log('RIGHT');
         }
     };
@@ -71,7 +71,7 @@ Game.prototype.startLoop = function() {
         // Draw obstacles and player
         this.drawCanvas(); 
 
-        // Check if player had hit any obstacle (check all obstacles)
+        // Check if player had hit any obstacle or the screen on the left/right
         this.checkCollisions();
 
         // Check if player made it to the other side
@@ -162,7 +162,7 @@ Game.prototype.checkCollisions = function() {
     // check collision with obstacles
     this.obstacles.forEach(function(obstacle) {
 
-    if (this.player.didCollide(obstacle)) {
+    if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
         console.log('COLLISION');
         this.player.removeLife();
         console.log('Lives:', this.player.lives);
