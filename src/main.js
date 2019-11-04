@@ -43,13 +43,11 @@ function main() {
             <main class="game container">
                 <div class="canvas-container">
                     <canvas></canvas>
-                </div>
-                <footer>
                     <div class="timer">
-                        <span class="label">Time:</span>
-                        <span class="value">0</span>
+                        <span class="label">Time: </span>
+                        <span class="value">0 seconds</span>
                     </div>
-                </footer>
+                </div>
             </main>
         `);
 

@@ -28,8 +28,20 @@ html, body {
     height: 100%;
 }
 
-canvas {
+.canvas-container {
+    width: 600px;
+    height: 600px;
+}
+
+.canvas-container canvas {
     border: 1px solid black;
+}
+
+.canvas-container .timer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -50px;
+    margin-right: 10px;
 }
 
 /*

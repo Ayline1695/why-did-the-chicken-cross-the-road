@@ -25,13 +25,10 @@ Game.prototype.start = function() {
     this.ctx = this.canvas.getContext('2d');
 
     // Set the canvas width and height
-    // this.containerWidth = this.canvasContainer.offsetWidth;
-    // this.containerHeight = this.canvasContainer.offsetHeight;
     this.canvas.setAttribute('width', 600);
     this.canvas.setAttribute('height', 600);
 
-    // Save reference to the time and lives elements
-    this.livesElement = this.gameScreen.querySelector('.lives .value');
+    // Save reference to the time element
     this.timerElement = this.gameScreen.querySelector('.timer .value');
 
     // Add event listener for moving the player
@@ -80,10 +77,11 @@ Game.prototype.startLoop = function() {
         // Check if player made it to the other side
         this.win();
         
+        // Stop the game if won/lost
         if (!this.gameIsOver && !this.gameIsWon) {
             window.requestAnimationFrame(loop);
         }
-        
+
         // Print lives icons
         this.printLives(); 
 
