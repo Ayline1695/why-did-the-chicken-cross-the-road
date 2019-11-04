@@ -73,6 +73,7 @@ Game.prototype.startLoop = function() {
 
         // Check if player had hit any obstacle or the screen on the left/right
         this.checkCollisions();
+        this.checkTime();
 
         // Check if player made it to the other side
         this.win();
@@ -86,7 +87,7 @@ Game.prototype.startLoop = function() {
         this.printLives(); 
 
         // Print time in seconds
-        this.timeCount();
+        this.printTime();
     }.bind(this);
 
     window.requestAnimationFrame(loop);
@@ -161,9 +162,27 @@ Game.prototype.createObstacles = function () {
 Game.prototype.checkCollisions = function() {
     // check collision with obstacles
     this.obstacles.forEach(function(obstacle) {
+        if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
+            console.log('COLLISION');
+            this.player.removeLife();
+            console.log('Lives:', this.player.lives);
 
-    if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
-        console.log('COLLISION');
+            if (this.player.lives > 0) {
+            // make the player come back to initial position when collided and lives > 0 
+            this.player.x = this.canvas.width / 2.2;
+            this.player.y = this.canvas.height - 60;
+            } else if (this.player.lives === 0) {
+                this.gameOver();
+            }
+        }
+    }, this);
+}
+
+
+Game.prototype.checkTime = function() {
+    // check if time is higher than 2min
+    if (this.timeScore > 120) {
+        console.log('TIME OVER');
         this.player.removeLife();
         console.log('Lives:', this.player.lives);
 
@@ -175,7 +194,6 @@ Game.prototype.checkCollisions = function() {
             this.gameOver();
         }
     }
-  }, this);
 }
 
 
@@ -210,13 +228,15 @@ Game.prototype.win = function() {
 }
 
 
-Game.prototype.timeCount = function() {
+Game.prototype.printTime = function() {
     // count the loops
     this.loopCount++;
-    if (this.loopCount % 60 === 0) { // every time we reach a second (considering that 60 loops = 1 second)
+
+    // every time we reach a second (considering that 60 loops = 1 second)
+    if (this.loopCount % 60 === 0) { 
         // convert the time in seconds
         this.timeScore = Math.floor(this.loopCount / 60);
-        // print the seconds to the game screen
+        // and print the seconds to the game screen
         this.timerElement.innerHTML = this.timeScore + ' seconds';
     }
 }
