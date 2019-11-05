@@ -108,9 +108,11 @@ function main() {
             <h1>Game won</h1>
             <p>You are a chicken saver!!!</p>
             <p>Your time: <span></span></p>
+            <p>Random answer here<p>
             <button type="submit">Restart</button>
         </main>
     `);
+
 
         // restart the game on 'click'
         var button = winScreen.querySelector('button');
@@ -135,7 +137,7 @@ function main() {
         }
     }
 
-
+    
     // -- setting the game state
     function startGame() {
         // first remove the start screen

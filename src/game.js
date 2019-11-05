@@ -14,8 +14,8 @@ function Game() {
     this.background = new Image();
     this.background.src = "./assets/img/canvas-background.jpg";
     this.lives = new Image();
-    this.lives.src = "./assets/img/corn.png";
-    this.bonusX = Math.floor(Math.random() * 500);
+    this.lives.src = "./assets/img/chicken-life.png";
+    this.bonus = [];
 }
 
 
@@ -60,8 +60,13 @@ Game.prototype.startLoop = function() {
     this.player = new Player(this.canvas, this.ctx);
     this.createObstacles();
 
-    // Create bonus instance
-    this.bonus = new Bonus(this.canvas, this.ctx, this.bonusX);
+    // Create bonus instance every 10 seconds
+    var that = this;
+    var bonusInterval = setInterval( function() {
+        var bonusX = Math.floor(Math.random() * 500);
+        that.createBonus(bonusX);
+    }, 6000);
+
     
     var loop = function() {
         // console.log('in loop');
@@ -75,11 +80,12 @@ Game.prototype.startLoop = function() {
         // Draw obstacles and player
         this.drawCanvas(); 
 
-        // Check if player had hit any obstacle or the screen on the left/right
+        // Check if player has hit any obstacle or the screen on the left/right
         this.checkCollisions();
         this.checkTime();
 
-        this.checkWinBonus();
+        // Check if bonus life has been won
+        this.checkIfBonusWon();
 
         // Check if player made it to the other side
         this.win();
@@ -111,11 +117,10 @@ Game.prototype.drawCanvas = function () {
         this.player.draw();
     // }
 
-    // Draw bonus
-    if((this.timeScore > 1 && this.timeScore < 20)) {
-        this.bonus.draw();
-        console.log(this.bonus.x, this.bonus.y);
-    }
+    // Draw bonus 
+    this.bonus.forEach(function(bonus) {
+        bonus.draw();
+    })
 }
 
 
@@ -171,6 +176,22 @@ Game.prototype.createObstacles = function () {
 }
 
 
+Game.prototype.createBonus = function(bonusX) {
+    this.bonus.push(new Bonus(this.canvas, this.ctx, bonusX));
+
+    var startTime = this.timeScore;
+    // console.log(startTime);
+
+    // remove bonus after 4 seconds of being created 
+    var intervalId = setInterval(() => {
+        if(startTime + 4 === this.timeScore) {
+            this.bonus = [];
+            clearInterval(intervalId);
+        }
+    }, 1000)
+}
+
+
 Game.prototype.checkCollisions = function() {
     // check collision with obstacles
     this.obstacles.forEach(function(obstacle) {
@@ -187,6 +208,20 @@ Game.prototype.checkCollisions = function() {
                 this.gameOver();
             }
         }
+    }, this);
+}
+
+
+Game.prototype.checkIfBonusWon = function() {
+    this.bonus.forEach(function(singleBonus) {
+        if (this.player.catchedBonus(singleBonus)) {
+            console.log('BONUS CATCH');
+            this.player.addLife();
+            console.log('Lives:', this.player.lives);
+    
+            // make the bonus disappear to the left
+            singleBonus.x = 0 - singleBonus.size;
+        } 
     }, this);
 }
 
@@ -256,7 +291,18 @@ Game.prototype.printTime = function() {
 
 Game.prototype.printLives = function () { 
     // print lives icons depending on how many lives are remaining
-    if (this.player.lives === 3) {
+    if (this.player.lives === 5) {
+        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 65, 555, 25, 30)
+        this.ctx.drawImage(this.lives, 95, 555, 25, 30)
+        this.ctx.drawImage(this.lives, 125, 555, 25, 30)
+    } else if (this.player.lives === 4) {
+        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 65, 555, 25, 30);
+        this.ctx.drawImage(this.lives, 95, 555, 25, 30);
+    } else if (this.player.lives === 3) {
         this.ctx.drawImage(this.lives, 5, 555, 25, 30);
         this.ctx.drawImage(this.lives, 35, 555, 25, 30);
         this.ctx.drawImage(this.lives, 65, 555, 25, 30)
@@ -274,9 +320,3 @@ Game.prototype.destroyGameScreen = function() {
 };
 
 
-Game.prototype.checkWinBonus = function() {
-    if ((this.bonus.x === this.player.x && this.player.y === 480) && this.player.x !== 0) {
-        this.player.lives++;
-        console.log('GANO UNA VIDA')
-    }
-}

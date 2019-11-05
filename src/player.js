@@ -103,6 +103,28 @@ Player.prototype.collidedWithObstacle = function(obstacle) {
     }
 };
 
+Player.prototype.catchedBonus = function(bonus) {
+    var playerLeft = this.x;
+    var playerRight = this.x + this.widthLR;
+    var playerTop = this.y;
+    var playerBottom = this.y + this.height;
+
+    var bonusLeft = bonus.x;
+    var bonusRight = bonus.x + bonus.size;
+    var bonusTop = bonus.y;
+    var bonusBottom = bonus.y + bonus.size;
+
+    var crossRight = bonusLeft < playerRight;
+    var crossLeft = bonusRight > playerLeft;
+    var crossTop = bonusBottom > playerTop;
+    var crossBottom = bonusTop < playerBottom;
+
+    if ((crossRight && crossLeft) && (crossTop && crossBottom)) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
 Player.prototype.collidedWithScreen = function() {
     var screenLeft = 0;
@@ -115,6 +137,9 @@ Player.prototype.collidedWithScreen = function() {
     }
 };
 
+Player.prototype.addLife = function() {
+    this.lives += 1;
+};
 
 
 Player.prototype.removeLife = function() {
