@@ -12,7 +12,7 @@ function Game() {
     this.loopCount = 0;
     this.timeScore = 0;
     this.background = new Image();
-    this.background.src = "./assets/img/canvas-background.jpg";
+    this.background.src = "./assets/img/canvas-background.png";
     this.lives = new Image();
     this.lives.src = "./assets/img/chicken-life.png";
     this.bonus = [];

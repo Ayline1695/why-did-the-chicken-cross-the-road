@@ -5,9 +5,9 @@ function Bonus(canvas, ctx, randomX) {
     this.ctx = ctx;
     this.size = 40;
     this.x = randomX;
-    this.y = 360;
+    this.y =280;
     this.bonusImage = new Image();
-    this.bonusImage.src = "./assets/img/corn.png";
+    this.bonusImage.src = "./assets/img/corn-candy.png";
 }
 
 

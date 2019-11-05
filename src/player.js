@@ -47,7 +47,6 @@ Player.prototype.draw = function() {
             this.ctx.drawImage(this.playerImage, this.x, this.y, this.widthLR, this.height);
             break;
     }
-    
 };
 
 

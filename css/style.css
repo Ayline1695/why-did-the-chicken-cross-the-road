@@ -26,8 +26,8 @@ body {
 
 html, body {
     height: 100%;
-    background-color: #CCCCCC);
-    background-size: 5%;
+    background-image: url('../assets/img/bckg-repeat.png');
+    background-repeat: repeat;
 }
 
 main.container {
