@@ -15,7 +15,7 @@ function Game() {
     this.background.src = "./assets/img/canvas-background.png";
     this.lives = new Image();
     this.lives.src = "./assets/img/chicken-life.png";
-    this.bonus = [];
+    this.bonus = null;
 }
 
 
@@ -64,7 +64,7 @@ Game.prototype.startLoop = function() {
     var that = this;
     var bonusInterval = setInterval( function() {
         var bonusX = Math.floor(Math.random() * 500);
-        that.createBonus(bonusX);
+        that.createBonus(bonusX, 3000);
     }, 6000);
 
     
@@ -83,6 +83,10 @@ Game.prototype.startLoop = function() {
         // Check if player has hit any obstacle or the screen on the left/right
         this.checkCollisions();
         this.checkTime();
+
+        // Check if it's time to display the bonus
+        // if (this.timeScore - this.bonus.startTime === 7) {
+        // }
 
         // Check if bonus life has been won
         this.checkIfBonusWon();
@@ -118,9 +122,11 @@ Game.prototype.drawCanvas = function () {
     // }
 
     // Draw bonus 
-    this.bonus.forEach(function(bonus) {
-        bonus.draw();
-    })
+    if(this.bonus) {
+        this.bonus.draw();
+    }
+    
+
 }
 
 
@@ -176,19 +182,16 @@ Game.prototype.createObstacles = function () {
 }
 
 
-Game.prototype.createBonus = function(bonusX) {
-    this.bonus.push(new Bonus(this.canvas, this.ctx, bonusX));
+Game.prototype.createBonus = function(bonusX, clearBonusInterval) {
+    this.bonus= new Bonus(this.canvas, this.ctx, bonusX);
 
     var startTime = this.timeScore;
     // console.log(startTime);
 
     // remove bonus after 4 seconds of being created 
-    var intervalId = setInterval(() => {
-        if(startTime + 4 === this.timeScore) {
-            this.bonus = [];
-            clearInterval(intervalId);
-        }
-    }, 1000)
+    var intervalId = setTimeout(() => {
+        this.bonus = null;
+    }, clearBonusInterval)
 }
 
 
@@ -213,16 +216,15 @@ Game.prototype.checkCollisions = function() {
 
 
 Game.prototype.checkIfBonusWon = function() {
-    this.bonus.forEach(function(singleBonus) {
-        if (this.player.catchedBonus(singleBonus)) {
+    
+        if (this.player.catchedBonus(this.bonus)) {
             console.log('BONUS CATCH');
             this.player.addLife();
             console.log('Lives:', this.player.lives);
     
             // make the bonus disappear to the left
-            singleBonus.x = 0 - singleBonus.size;
+            this.bonus.x = 0 - this.bonus.size;
         } 
-    }, this);
 }
 
 

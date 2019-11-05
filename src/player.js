@@ -103,6 +103,11 @@ Player.prototype.collidedWithObstacle = function(obstacle) {
 };
 
 Player.prototype.catchedBonus = function(bonus) {
+    // check there's a bonus
+    if(!bonus) {
+        return false;
+    }
+
     var playerLeft = this.x;
     var playerRight = this.x + this.widthLR;
     var playerTop = this.y;
