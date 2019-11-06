@@ -111,7 +111,7 @@ function main() {
         //         startGame();
         //     }
         // });
-        
+        console.log('HELLO, IS MY CODE BEING PUBLISHED?');
         document.body.appendChild(gameOverScreen);
     }
 
@@ -199,6 +199,7 @@ function main() {
 
         // print the best 5 scores into a table
         // var scores = winScreen.querySelector('#scoretable tbody');
+        
         for(var i = 0; i < 10; i++) {
             var playersName = winScreen.querySelector('#name' + (i+1));
             console.log('WHAT IS SCOREBOARD');
