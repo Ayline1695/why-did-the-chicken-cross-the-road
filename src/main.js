@@ -201,9 +201,9 @@ function main() {
         // var scores = winScreen.querySelector('#scoretable tbody');
         for(var i = 0; i < 10; i++) {
             var playersName = winScreen.querySelector('#name' + (i+1));
-            playersName.innerHTML = scoreBoard[i].name;
             console.log('WHAT IS SCOREBOARD');
             console.log(scoreBoard);
+            playersName.innerHTML = scoreBoard[i].name;
             console.log(scoreBoard[i].name);
             var playersTime = winScreen.querySelector('#time' + (i+1));
             playersTime.innerHTML = scoreBoard[i].score + ' seconds';
