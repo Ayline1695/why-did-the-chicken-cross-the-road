@@ -202,8 +202,10 @@ function main() {
         for(var i = 0; i < 10; i++) {
             var playersName = winScreen.querySelector('#name' + (i+1));
             playersName.innerHTML = scoreBoard[i].name;
+            console.log(scoreBoard[i].name);
             var playersTime = winScreen.querySelector('#time' + (i+1));
             playersTime.innerHTML = scoreBoard[i].score + ' seconds';
+            console.log(scoreBoard[i].score);
         }
 
         // print the timescore to the screen
