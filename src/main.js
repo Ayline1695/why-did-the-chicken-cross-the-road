@@ -13,6 +13,7 @@ function main() {
     var startScreen; 
     var gameOverScreen;
     var winScreen;
+    var name;
 
 
     // -- start screen
@@ -20,7 +21,15 @@ function main() {
         startScreen = buildDom(`
             <main>
                 <h1>Why did the chicken cross the road?</h1>
-                <button type="submit">Start</button>
+                <div>
+                    <form>
+                        <label>First, insert your name</label>
+                        <input id="username" type="text" placeholder="Name" value="">
+                    </form>
+                </div>
+                <div>
+                    <button type="submit">Start Game</button>
+                </div>
             </main>
         `);
 
@@ -28,7 +37,15 @@ function main() {
 
         // start the game on click
         var startButton = startScreen.querySelector('button');
-        startButton.addEventListener('click', startGame);
+        console.log(startButton);
+
+        startButton.addEventListener('click', function() {
+            name = startScreen.querySelector('#username').value;
+            if(name === '') {
+                name = 'Anonymous chicken'
+            }
+            startGame(name);
+        });
 
         // start the game on 'enter' keypress
         // document.body.addEventListener('keypress', function(event) {
@@ -37,6 +54,7 @@ function main() {
         //     }
         // });
     }
+
 
     function removeStartScreen() {
         startScreen.remove();
@@ -106,15 +124,36 @@ function main() {
 
 
     // -- win screen
-    function createWinScreen(timeScore) {
+    function createWinScreen(name, timeScore) {
         winScreen = buildDom(`
         <main>
             <h1>Game won</h1>
             <p>Well done !</p>
             <p>Your time: <span></span></p>
             <div>
+                <table id="scoretable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td id='name1'></td><td id='time1'></td></tr>
+                        <tr><td id='name2'></td><td id='time2'></td></tr>
+                        <tr><td id='name3'></td><td id='time3'></td></tr>
+                        <tr><td id='name4'></td><td id='time4'></td></tr>
+                        <tr><td id='name5'></td><td id='time5'></td></tr>
+                        <tr><td id='name6'></td><td id='time6'></td></tr>
+                        <tr><td id='name7'></td><td id='time7'></td></tr>
+                        <tr><td id='name8'></td><td id='time8'></td></tr>
+                        <tr><td id='name9'></td><td id='time9'></td></tr>
+                        <tr><td id='name10'></td><td id='time10'></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
                 <h4>So, why did the chicken cross the road again???</h4>
-                <p>Answer:</p>
                 <p id='answer'>Random answer here<p>
                 <p id='author'>The author of the random answer here<p>
             </div>
@@ -124,19 +163,54 @@ function main() {
 
         // restart the game on 'click'
         var button = winScreen.querySelector('button');
-        button.addEventListener('click', startGame); 
+        button.addEventListener('click', startGame);
 
-        // restart the game on 'enter' keypress
-        // document.body.addEventListener('keypress', function(event) {
+        // // restart the game on 'enter' keypress
+        // document.body.addEventListener('keyup', function(event) {
+        //     event.preventDefault();
         //     if (event.keyCode === 13) { // 13 is enter
         //         startGame();
         //     }
         // });
 
+        // Store player's name and corresponding timescore into an array
+        var scoreArray;
+        if(localStorage.getItem('scoreArray') === null){
+            scoreArray = [];
+        } else {
+            scoreArray = JSON.parse(localStorage.getItem('scoreArray'));
+        }
+
+        // store player's name and timescore into an object that is pushed into the scoreArray
+        var newPlayer = {
+            name: name,
+            score: timeScore
+        };
+        scoreArray.push(newPlayer);
+
+        // stringify the array in order to add it to local storage
+        localStorage.setItem('scoreArray', JSON.stringify(scoreArray));
+
+        // convert it back into an array in order to get data from local storage
+        var scoreBoard = JSON.parse(localStorage.getItem('scoreArray'));
+        scoreBoard.sort(function(a,b){
+            return b.timeScore - a.timeScore;
+        });
+
+        // print the best 5 scores into a table
+        // var scores = winScreen.querySelector('#scoretable tbody');
+        for(var i = 0; i < 10; i++) {
+            var playersName = winScreen.querySelector('#name' + (i+1));
+            playersName.innerHTML = scoreBoard[i].name;
+            var playersTime = winScreen.querySelector('#time' + (i+1));
+            playersTime.innerHTML = scoreBoard[i].score + ' seconds';
+        }
+
+        // print the timescore to the screen
         var span = winScreen.querySelector('span');
         span.innerText = timeScore + ' seconds';
 
-        // calculate a random index
+        // calculate a random index and print a random answer and author
         var randomIndex = Math.floor(Math.random() * (answers.length - 1));
 
         var answer = winScreen.querySelector('#answer');
@@ -145,6 +219,7 @@ function main() {
         var author = winScreen.querySelector('#author');
         author.innerText = getRandomAuthor(randomIndex);
         
+        // append the winscreen to the DOM
         document.body.appendChild(winScreen);
     }
 
@@ -156,7 +231,7 @@ function main() {
 
     
     // -- setting the game state
-    function startGame() {
+    function startGame(name) {
         // first remove the start screen
         removeStartScreen();
 
@@ -165,7 +240,7 @@ function main() {
         removeWinScreen();
 
         // then print the game screen
-        game = new Game();
+        game = new Game(name);
         game.gameScreen = createGameScreen();
 
         // start the game
@@ -173,17 +248,18 @@ function main() {
 
         // end the game
         game.passGameResult(function() {
-            endGame(game.timeScore);
+            endGame(name, game.timeScore);
         });
     }
 
-    function endGame(timeScore) {
+
+    function endGame(name, timeScore) {
         console.log('GAME ENDED');
         removeGameScreen();
 
         if(game.gameIsWon) {
             console.log('YOU ARE A WINNER');
-            createWinScreen(timeScore);
+            createWinScreen(name, timeScore);
         } else {
             createGameOverScreen();
         }
@@ -204,7 +280,7 @@ function main() {
     ['Karl Max', 'It was an historical inevitability.'],
     ['Jean-Paul Sartre', 'In order to act in good faith and be true to itself, the chicken found it necessary to cross the road.'],
     ['Bhuddha', 'If you ask this question, you deny your own chicken-nature.'],
-    ['Darwin', 'Chickens, over great periods of time, have been naturally selected in such a way that they are now genetically predisposed to cross roads'],
+    ['Darwin', 'Chickens, over great periods of time, have been naturally selected in such a way that they are now genetically predisposed to cross roads.'],
     ['Salvador Dali', 'The Fish.'],
     ['Emily Dickinson', 'Because it could not stop for death.'],
     ['Ernest Hemingway', 'To die. In the rain.'],
@@ -218,7 +294,6 @@ function main() {
     ['Grandpa', 'In my day, we didn\'t ask why the chicken crossed the road. Someone told us that the chicken had crossed the road, and that was good enough for us.'],
     ['George Orwell', 'Because the government had fooled him into thinking that he was crossing the road of his own free will, when he was really only serving their interests.'],
     [' The Sphinx', 'You tell me.'],
-    [' Ralph Waldo Emerson', 'It didn\'t cross the road; it transcended it.'],
     ['Joseph Stalin', 'I don\'t care. Catch it. I need its eggs to make my omelet.']
 ];
 

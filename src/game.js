@@ -1,6 +1,7 @@
 'use strict';
 
-function Game() {
+function Game(name) {
+    this.name = name;
     this.canvas = null;
     this.ctx = null;
     this.obstacles = [];
