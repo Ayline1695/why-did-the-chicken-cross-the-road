@@ -1,23 +1,67 @@
 /* ---- reset ---- */
-
-html {
-    box-sizing: border-box;
-}
-
 *, *:before, *:after {
     box-sizing: inherit;
 }
 
-body, h1 {
-    margin: 0;
-    padding: 0;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
 /* ---- typography ---- */
 
+@font-face {
+    font-family: "Open Sans";
+    src: url("../assets/fonts/pixelmix.ttf") format("ttf"),
+    url("../assets/fonts/pixelmix_bold.ttf") format("ttf");
+    }
+
 body {
     color: #111;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 147%;
 }
@@ -26,13 +70,33 @@ body {
 
 html, body {
     height: 100%;
-    background-image: url('../assets/img/bckg-repeat.png');
-    background-repeat: repeat;
+    background: url('../assets/img/bg-wallpaper.png');
+    background-size: cover;
 }
 
 main.container {
+    height: 100%;
     display: flex;
     justify-content: center;
+    background: url('../assets/img/game-wallpaper.png');
+    background-repeat: repeat;
+    background-size: cover;
+    align-items: center;
+}
+
+main.container .instructions {
+    margin-top: -460px;
+    margin-left: -250px;
+    font-size: 16px;
+}
+
+main.container .instructions p {
+    margin: 10px 0;
+}
+
+main.container .timer {
+    margin-top: 20px;
+    margin-left: -250px;
 }
 
 .canvas-container {
@@ -41,14 +105,12 @@ main.container {
 }
 
 .canvas-container canvas {
-    border: 1px solid black;
-}
-
-.canvas-container .timer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: -50px;
-    margin-right: 10px;
+    border: 10px solid #292a2a;
+    border-radius: 25px;
+    -webkit-box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
+-moz-box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
+box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
+Copy Text
 }
 
 /*

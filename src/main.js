@@ -49,6 +49,10 @@ function main() {
             <main class="game container">
                 <div class="canvas-container">
                     <canvas></canvas>
+                    <div class="instructions">
+                        <p>This is Chicky.</p>
+                        <p>Help her to get <br>to the other <br>side in less <br>than 2 min!</p>
+                    </div>
                     <div class="timer">
                         <span class="label">Time: </span>
                         <span class="value">0 seconds</span>
@@ -109,7 +113,8 @@ function main() {
             <p>Well done !</p>
             <p>Your time: <span></span></p>
             <div>
-                <h4>Answer:</h4>
+                <h4>So, why did the chicken cross the road again???</h4>
+                <p>Answer:</p>
                 <p id='answer'>Random answer here<p>
             </div>
             <button type="submit">Restart</button>
@@ -188,7 +193,6 @@ function main() {
     'Albert Einstein: Whether the chicken crossed the road or the road crossed the chicken depends upon your frame of reference.',
     'Isaac Newton: Chickens at rest tend to stay at rest. Chickens in motion tend to cross roads.',
     'Blaise Pascal: The chicken felt pressure on this side of the road. However, when it arrived on the other side it still felt the same pressure.',
-    'Sir William Hamilton: With regard to the issue of crossing the road, the chicken made it to the other side by taking as little action as possible.',
     'Plato: For the greater good.',
     'Karl Max: It was an historical inevitability.',
     'Jean-Paul Sartre: In order to act in good faith and be true to itself, the chicken found it necessary to cross the road.',
