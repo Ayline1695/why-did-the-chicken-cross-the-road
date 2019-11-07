@@ -28,7 +28,7 @@ function main() {
                     </form>
                 </div>
                 <div>
-                    <button id="start-game" type="submit">Start Game</button>
+                    <button id="start-game">Start Game</button>
                 </div>
             </main>
         `);
@@ -42,7 +42,7 @@ function main() {
         startButton.addEventListener('click', function() {
             name = startScreen.querySelector('#username').value;
             if(name === '') {
-                name = 'Anonymous chicken'
+                name = 'ANONYMOUS CHICKEN'
             }
             startGame(name);
         });
@@ -54,7 +54,7 @@ function main() {
                 document.body.removeEventListener('keydown', startOnEnter);
                 name = startScreen.querySelector('#username').value;
             if(name === '') {
-                name = 'Anonymous chicken'
+                name = 'ANONYMOUS CHICKEN'
             }
                 startGame(name);
             }
@@ -105,7 +105,8 @@ function main() {
         <main class="transition-screen">
             <h1>Game over</h1>
             <p>You just killed an innocent chicken</p>
-            <button type="submit">Restart</button>
+            <button class="restart">Play again</button>
+            <button class="new-player">New player</button>
         </main>
     `);
     
@@ -168,7 +169,8 @@ function main() {
                     </tbody>
                 </table>
             </div>
-            <button type="submit">Restart</button>
+            <button class="restart">Play again</button>
+            <button class="new-player">New player</button>
         </main>
     `);
 
