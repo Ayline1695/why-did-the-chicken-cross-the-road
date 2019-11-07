@@ -104,7 +104,7 @@ function main() {
         gameOverScreen = buildDom(`
         <main class="transition-screen blood">
             <div>
-                <h1><img src="../assets/img/gameover-blood.png" alt="you win"></h1>
+                <h1><img src="../assets/img/gameover-blood.png" alt="game over"></h1>
                 <p>You just killed<br> an innocent chicken.</p>
             </div>
             <button>Restart</button>

@@ -69,9 +69,17 @@ table {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'joystixmonospace';
+    src: url('../assets/fonts/joystix_monospace-webfont.woff2') format('woff2'),
+    url('../assets/fonts/joystix_monospace-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     color: #111;
-    font-family: 'pixelmixregular', 'pixelscreennormal', Helvetica, Arial, sans-serif;
+    font-family: 'pixelmixregular', 'joystixmonospace', 'pixelscreennormal', Helvetica, Arial, sans-serif;
     font-size: 16px;
     /* line-height: 147%; */
 }
@@ -262,7 +270,7 @@ p#author {
 /* ---- win screen layout ---- */
 
 .blood p {
-    margin-top: -40px;
+    margin-top: -10px;
     text-align: center;
     line-height: 24px;
 }
