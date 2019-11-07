@@ -104,8 +104,8 @@ function main() {
         gameOverScreen = buildDom(`
         <main class="transition-screen blood">
             <div>
-                <h1>Game over</h1>
-                <p>You just killed an innocent chicken</p>
+                <h1><img src="../assets/img/gameover-blood.png" alt="you win"></h1>
+                <p>You just killed<br> an innocent chicken.</p>
             </div>
             <button>Restart</button>
         </main>
@@ -300,24 +300,15 @@ function main() {
  var answers = [
     ['Albert Einstein', 'Whether the chicken crossed the road or the road crossed the chicken depends upon your frame of reference.'],
     ['Isaac Newton', 'Chickens at rest tend to stay at rest. Chickens in motion tend to cross roads.'],
-    ['Blaise Pascal', 'The chicken felt pressure on this side of the road. However, when it arrived on the other side it still felt the same pressure.'],
-    ['Plato', 'For the greater good.'],
-    ['Karl Max', 'It was an historical inevitability.'],
-    ['Jean-Paul Sartre', 'In order to act in good faith and be true to itself, the chicken found it necessary to cross the road.'],
     ['Bhuddha', 'If you ask this question, you deny your own chicken-nature.'],
     ['Darwin', 'Chickens, over great periods of time, have been naturally selected in such a way that they are now genetically predisposed to cross roads.'],
-    ['Emily Dickinson', 'Because it could not stop for death.'],
     ['Ernest Hemingway', 'To die. In the rain.'],
     ['Jack Nicholson', 'Cause it fuckin\' wanted to. That\'s the fuckin\' reason.'],
-    ['Albert Camus', 'It doesn\'t matter; the chicken\'s actions have no meaning except to him.'], 
     ['The Bible', 'And God came down from the heavens, and He said unto the chicken, "Thou shalt cross the road." And the Chicken crossed the road, and there was much rejoicing.'],
     ['Freud', 'The fact that you thought that the chicken crossed the road reveals your underlying sexual insecurity.'],
     ['Richard M. Nixon', 'The chicken did not cross the road. I repeat, the chicken did not cross the road.'],
     ['Martin Luther King', 'Jr.: I envision a world where all chickens will be free to cross roads without having their motives called into question.'],
-    ['Immanuel Kant', 'The chicken, being an autonomous being, chose to cross the road of his own free will.'],
     ['Grandpa', 'In my day, we didn\'t ask why the chicken crossed the road. Someone told us that the chicken had crossed the road, and that was good enough for us.'],
-    ['George Orwell', 'Because the government had fooled him into thinking that he was crossing the road of his own free will, when he was really only serving their interests.'],
-    [' The Sphinx', 'You tell me.'],
     ['Joseph Stalin', 'I don\'t care. Catch it. I need its eggs to make my omelet.']
 ];
 

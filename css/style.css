@@ -54,22 +54,24 @@ table {
 /* ---- typography ---- */
 
 @font-face {
-    font-family: 'pixelmix Regular';
-    font-style: normal;
+    font-family: 'pixelmixregular';
+    src: url('../assets/fonts/pixelmix-webfont.woff2') format('woff2'),
+    url('../assets/fonts/pixelmix-webfont.woff') format('woff');
     font-weight: normal;
-    src: local('pixelmix Regular'), url('../assets/fonts/pixelmix.woff') format('woff');
+    font-style: normal;
 }
     
 @font-face {
-    font-family: 'pixelmix bold Regular';
-    font-style: normal;
+    font-family: 'pixelscreennormal';
+    src: url('../assets/fonts/pixelscreen_normal-webfont.woff2') format('woff2'),
+    url('../assets/fonts/pixelscreen_normal-webfont.woff') format('woff');
     font-weight: normal;
-    src: local('pixelmix bold Regular'), url('../assets/fonts/pixelmix_bold.woff') format('woff');
+    font-style: normal;
 }
 
 body {
     color: #111;
-    font-family: "pixelmix", Helvetica, Arial, sans-serif;
+    font-family: 'pixelmixregular', 'pixelscreennormal', Helvetica, Arial, sans-serif;
     font-size: 16px;
     /* line-height: 147%; */
 }
@@ -259,17 +261,14 @@ p#author {
 
 /* ---- win screen layout ---- */
 
-.blood {
-    width: 100%;
-    min-height: 600px;
-    background: url('../assets/img/blood.png') center no-repeat;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
+.blood p {
+    margin-top: -40px;
+    text-align: center;
+    line-height: 24px;
 }
 
-.blood p {
-    margin-top: 40px;
+.blood button {
+    margin-top: 0;
 }
 
 /*
