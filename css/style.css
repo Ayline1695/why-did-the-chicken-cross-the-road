@@ -238,11 +238,12 @@ p#author, p#answer {
 }
 
 p#answer { 
-    width: 75%;
+    width: 60%;
     padding: 15px;
     background-color: #f6dda6;
     line-height: 24px;
     text-align: center;
+    font-style: italic;
 }
 
 p#author { 

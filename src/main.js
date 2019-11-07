@@ -141,7 +141,7 @@ function main() {
         <main class="transition-screen">
             <h1>Game won</h1>
             <div id="quote">
-                <h4>So, why did the chicken <br>cross the road again?</h4>
+                <h4>So, why did the chicken <br>cross the road?</h4>
                 <p id='answer'>Random answer here<p>
                 <p id='author'>The author of the random answer here<p>
             </div>
