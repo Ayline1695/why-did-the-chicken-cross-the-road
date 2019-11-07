@@ -19,16 +19,16 @@ function main() {
     // -- start screen
     function createStartScreen() {
         startScreen = buildDom(`
-            <main>
-                <h1>Why did the chicken cross the road?</h1>
-                <div>
+            <main class="transition-screen">
+                <h1>Why did <br>the chicken <br>cross the road?</h1>
+                <div id="register-name">
                     <form>
-                        <label>First, insert your name</label>
+                        <label>First, insert your name:</label>
                         <input id="username" type="text" placeholder="Name" value="">
                     </form>
                 </div>
                 <div>
-                    <button type="submit">Start Game</button>
+                    <button id="start-game" type="submit">Start Game</button>
                 </div>
             </main>
         `);
@@ -48,11 +48,18 @@ function main() {
         });
 
         // start the game on 'enter' keypress
-        // document.body.addEventListener('keypress', function(event) {
-        //     if (event.keyCode === 13) { // 13 is enter
-        //         startGame();
-        //     }
-        // });
+        function startOnEnter() {
+            if (event.keyCode === 13) {
+                console.log('enter'); // 13 is enter
+                document.body.removeEventListener('keydown', startOnEnter);
+                name = startScreen.querySelector('#username').value;
+            if(name === '') {
+                name = 'Anonymous chicken'
+            }
+                startGame(name);
+            }
+        }
+        document.body.addEventListener('keydown', startOnEnter);
     }
 
 
@@ -78,7 +85,8 @@ function main() {
                 </div>
             </main>
         `);
-
+        // debugger;
+        // console.log("start called")
         document.body.appendChild(gameScreen);
 
         return gameScreen;
@@ -94,25 +102,29 @@ function main() {
     // -- game over screen
     function createGameOverScreen() {
         gameOverScreen = buildDom(`
-        <main>
+        <main class="transition-screen">
             <h1>Game over</h1>
             <p>You just killed an innocent chicken</p>
             <button type="submit">Restart</button>
         </main>
     `);
-
-        // restart the game on 'click'
-        var button = gameOverScreen.querySelector('button');
-        button.addEventListener('click', startGame); 
-
-        // restart the game on 'enter' keypress
-        // document.body.addEventListener('keypress', function(event) {
-        //     if (event.keyCode === 13) { // 13 is enter
-        //         startGame();
-        //     }
-        // });
-        
-        document.body.appendChild(gameOverScreen);
+    
+    // restart the game on 'click'
+    var button = gameOverScreen.querySelector('button');
+    button.addEventListener('click', function() {
+        startGame(name);
+    }); 
+    
+    // restart the game on 'enter' keypress
+    function startOnEnter() {
+        if (event.keyCode === 13) { // 13 is enter
+            document.body.removeEventListener('keydown',startOnEnter);
+            startGame(name);
+        }
+    }
+    document.body.addEventListener('keydown', startOnEnter);
+    
+    document.body.appendChild(gameOverScreen);
     }
 
     function removeGameOverScreen() {
@@ -126,11 +138,15 @@ function main() {
     // -- win screen
     function createWinScreen(name, timeScore) {
         winScreen = buildDom(`
-        <main>
+        <main class="transition-screen">
             <h1>Game won</h1>
-            <p>Well done !</p>
-            <p>Your time: <span></span></p>
-            <div>
+            <div id="quote">
+                <h4>So, why did the chicken <br>cross the road again?</h4>
+                <p id='answer'>Random answer here<p>
+                <p id='author'>The author of the random answer here<p>
+            </div>
+            <div id="scores">
+                <p>Your time: <span></span></p>
                 <table id="scoretable">
                     <thead>
                         <tr>
@@ -152,26 +168,24 @@ function main() {
                     </tbody>
                 </table>
             </div>
-            <div>
-                <h4>So, why did the chicken cross the road again???</h4>
-                <p id='answer'>Random answer here<p>
-                <p id='author'>The author of the random answer here<p>
-            </div>
             <button type="submit">Restart</button>
         </main>
     `);
 
         // restart the game on 'click'
         var button = winScreen.querySelector('button');
-        button.addEventListener('click', startGame);
+        button.addEventListener('click', function() {
+            startGame(name);
+        });
 
         // // restart the game on 'enter' keypress
-        // document.body.addEventListener('keyup', function(event) {
-        //     event.preventDefault();
-        //     if (event.keyCode === 13) { // 13 is enter
-        //         startGame();
-        //     }
-        // });
+        function startOnEnter() {
+            if (event.keyCode === 13) { // 13 is enter
+                document.body.removeEventListener('keydown',startOnEnter);
+                startGame(name);
+            }
+        }
+        document.body.addEventListener('keydown', startOnEnter);
 
         // Store player's name and corresponding timescore into an array
         var scoreArray;
@@ -183,7 +197,7 @@ function main() {
 
         // store player's name and timescore into an object that is pushed into the scoreArray
         var newPlayer = {
-            name: name,
+            name: name.toUpperCase(),
             score: timeScore
         };
         scoreArray.push(newPlayer);
@@ -194,16 +208,22 @@ function main() {
         // convert it back into an array in order to get data from local storage
         var scoreBoard = JSON.parse(localStorage.getItem('scoreArray'));
         scoreBoard.sort(function(a,b){
-            return b.timeScore - a.timeScore;
+            return a.score - b.score;
         });
+        console.log('SCOREBOARD', scoreBoard);
 
         // print the best 5 scores into a table
         // var scores = winScreen.querySelector('#scoretable tbody');
         for(var i = 0; i < 10; i++) {
             var playersName = winScreen.querySelector('#name' + (i+1));
-            playersName.innerHTML = scoreBoard[i].name;
             var playersTime = winScreen.querySelector('#time' + (i+1));
-            playersTime.innerHTML = scoreBoard[i].score + ' seconds';
+            if(scoreBoard[i]) {
+                playersName.innerHTML = scoreBoard[i].name;
+                playersTime.innerHTML = scoreBoard[i].score + ' seconds';
+            } else {
+                playersName.innerHTML = '';
+                playersTime.innerHTML = '';
+            }            
         }
 
         // print the timescore to the screen
@@ -214,9 +234,11 @@ function main() {
         var randomIndex = Math.floor(Math.random() * (answers.length - 1));
 
         var answer = winScreen.querySelector('#answer');
+        answer.innerText = '';
         answer.innerText = getRandomAnswer(randomIndex);
 
         var author = winScreen.querySelector('#author');
+        author.innerText = '';
         author.innerText = getRandomAuthor(randomIndex);
         
         // append the winscreen to the DOM
