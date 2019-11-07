@@ -24,7 +24,7 @@ function main() {
                 <div id="register-name">
                     <form>
                         <label>First, insert your name:</label>
-                        <input id="username" type="text" placeholder="Name" value="">
+                        <input id="username" type="text" placeholder="My name" value="">
                     </form>
                 </div>
                 <div>
@@ -304,7 +304,6 @@ function main() {
     ['Jean-Paul Sartre', 'In order to act in good faith and be true to itself, the chicken found it necessary to cross the road.'],
     ['Bhuddha', 'If you ask this question, you deny your own chicken-nature.'],
     ['Darwin', 'Chickens, over great periods of time, have been naturally selected in such a way that they are now genetically predisposed to cross roads.'],
-    ['Salvador Dali', 'The Fish.'],
     ['Emily Dickinson', 'Because it could not stop for death.'],
     ['Ernest Hemingway', 'To die. In the rain.'],
     ['Jack Nicholson', 'Cause it fuckin\' wanted to. That\'s the fuckin\' reason.'],

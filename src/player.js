@@ -20,6 +20,7 @@ function Player(canvas, ctx) {
     this.playerImageRight.src = "./assets/img/chicken-right.png";
     this.playerImageLeft.src = "./assets/img/chicken-left.png";
     this.playerImage = this.playerImageUp;
+    this.stepSound = new Audio ("./assets/audio/chicken-step.wav");
 }
 
 
@@ -53,6 +54,11 @@ Player.prototype.draw = function() {
 Player.prototype.move = function(direction) {
     
     this.direction = direction;
+
+    // Player sound in every move
+    this.stepSound.currentTime = 0;
+    this.stepSound.volume = 0.1;
+    this.stepSound.play();
 
     switch (direction) { 
         case "up":

@@ -17,6 +17,7 @@ function Game(name) {
     this.lives = new Image();
     this.lives.src = "./assets/img/chicken-life.png";
     this.bonus = null;
+    this.crash = new Audio ("./assets/audio/chicken-crash.wav")
 }
 
 
@@ -201,6 +202,12 @@ Game.prototype.checkCollisions = function() {
     this.obstacles.forEach(function(obstacle) {
         if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
             console.log('COLLISION');
+            // crash sound
+            this.crash.currentTime = 0;
+            this.crash.volume = 0.2;
+            this.crash.play();
+
+            // remove live
             this.player.removeLife();
             console.log('Lives:', this.player.lives);
 
