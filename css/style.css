@@ -53,23 +53,18 @@ table {
 
 /* ---- typography ---- */
 
-/*
-    www.OnlineWebFonts.Com 
-    You must credit the author Copy this link on your web 
-    <div>Font made from <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>is licensed by CC BY 3.0</div>
-    OR
-    <a href="https://www.onlinewebfonts.com">oNline Web Fonts</a>
-*/
-@import url('https://db.onlinewebfonts.com/c/e91cfb72ba9694aa6853e675383b04c2?family=pixelmix');
-
 @font-face {
-    font-family: "pixelmix";
-    src: url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.eot"); /* IE9*/
-    src: url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.woff2") format("woff2"), /* chrome firefox */
-    url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.woff") format("woff"), /* chrome firefox */
-    url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
-    url("https://db.onlinewebfonts.com/t/e91cfb72ba9694aa6853e675383b04c2.svg#pixelmix") format("svg"); /* iOS 4.1- */
+    font-family: 'pixelmix Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('pixelmix Regular'), url('../assets/fonts/pixelmix.woff') format('woff');
+}
+    
+@font-face {
+    font-family: 'pixelmix bold Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('pixelmix bold Regular'), url('../assets/fonts/pixelmix_bold.woff') format('woff');
 }
 
 body {
