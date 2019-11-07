@@ -141,7 +141,7 @@ function main() {
     function createWinScreen(name, timeScore) {
         winScreen = buildDom(`
         <main class="transition-screen">
-            <h1>Game won</h1>
+            <h1><img src="../assets/img/youwin.png" alt="you win"></h1>
             <div id="quote">
                 <h4>So, why did the chicken <br>cross the road?</h4>
                 <p id='answer'>Random answer here<p>
