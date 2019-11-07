@@ -57,22 +57,93 @@ table {
     font-family: "Open Sans";
     src: url("../assets/fonts/pixelmix.ttf") format("ttf"),
     url("../assets/fonts/pixelmix_bold.ttf") format("ttf");
-    }
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("../assets/fonts/TypoLayer-MainLayer.ttf") format("ttf"),
+    url("../assets/fonts/TypoLayer-InferiorLayer.ttf") format("ttf");
+}
 
 body {
     color: #111;
     font-family: "Pixelmix", Helvetica, Arial, sans-serif;
     font-size: 16px;
-    line-height: 147%;
+    /* line-height: 147%; */
 }
 
-/* ---- layout ---- */
+/* ---- layout transition screens ---- */
 
 html, body {
     height: 100%;
     background: url('../assets/img/bg-wallpaper.png');
     background-size: cover;
 }
+
+main.transition-screen {
+    width: 65%;
+    margin: 0 auto;
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main.transition-screen h1 {
+    font-size: 48px;
+    text-transform: uppercase;
+    line-height: 60px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#register-name {
+    margin-top: 50px;
+}
+
+#register-name form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* padding: 20px; */
+}
+
+#register-name form label {
+    font-size: 20px;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+#register-name form input {
+    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+button {
+    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 30px;
+    padding: 20px 50px;
+    color: white;
+    background-color: #EB3559;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #ff2e58;
+}
+
+main.transition-screen p {
+    margin-bottom: 40px;
+}
+
+
+/* ---- game screen layout ---- */
 
 main.container {
     height: 100%;
@@ -110,8 +181,77 @@ main.container .timer {
     -webkit-box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
 -moz-box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
 box-shadow: 20px 20px 41px 0px rgba(41,42,42,0.4);
-Copy Text
 }
+
+/* ---- win screen layout ---- */
+
+#scores {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#scores p {
+    margin-bottom: 15px;
+}
+
+#scoretable {
+    width: 60%;
+    border: 2px dashed black;
+    padding: 10px
+}
+
+#scoretable thead {
+    border: 2px dashed black;
+}
+
+#scoretable th {
+    padding: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#scoretable td {
+    padding: 10px;
+    text-align: center;
+}
+
+div#quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h4 {
+    width: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+p#author, p#answer {
+    border-radius: 5px;
+    margin-bottom: 0px;
+}
+
+p#answer { 
+    width: 75%;
+    padding: 15px;
+    background-color: #f6dda6;
+    line-height: 24px;
+    text-align: center;
+}
+
+p#author { 
+    width: 60%;
+    font-weight: bold;
+    text-align: right;
+    margin-top: -30px;
+}
+
 
 /*
 .container {
