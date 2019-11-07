@@ -12,12 +12,14 @@ function Game(name) {
     this.gameScreen = null;
     this.loopCount = 0;
     this.timeScore = 0;
+    this.pause = false;
     this.background = new Image();
-    this.background.src = "./assets/img/canvas-background.png";
+    this.background.src = './assets/img/canvas-background.png';
     this.lives = new Image();
-    this.lives.src = "./assets/img/chicken-life.png";
+    this.lives.src = './assets/img/chicken-life.png';
     this.bonus = null;
-    this.crash = new Audio ("./assets/audio/chicken-crash.wav")
+    this.bonusSound = new Audio ('./assets/audio/bonus.wav')
+    this.crashSound = new Audio ('./assets/audio/chicken-crash.wav');
 }
 
 
@@ -48,7 +50,15 @@ Game.prototype.start = function() {
         } else if (event.key === 'ArrowRight') {
             this.player.move('right');
             console.log('RIGHT');
-        }
+        } else if (event.keyCode === 32) {
+            if (this.pause === false) {
+                this.pause = true; 
+                console.log(this.pause);
+            } else {
+                this.pause = false; 
+                console.log(this.pause);
+            }
+        } 
     };
     document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
 
@@ -73,39 +83,46 @@ Game.prototype.startLoop = function() {
     var loop = function() {
         // console.log('in loop');
 
-        // Clear the canvas
-        this.clearCanvas();
+        // check if game is not on pause 
+        if(this.pause === false) {
 
-        // Update the canvas with the state of player and obstacles
-        this.updateCanvas(); 
+            // Clear the canvas
+            this.clearCanvas();
 
-        // Draw obstacles and player
-        this.drawCanvas(); 
+            // Update the canvas with the state of player and obstacles
+            this.updateCanvas(); 
 
-        // Check if player has hit any obstacle or the screen on the left/right
-        this.checkCollisions();
-        this.checkTime();
+            // Draw obstacles and player
+            this.drawCanvas(); 
 
-        // Check if it's time to display the bonus
-        // if (this.timeScore - this.bonus.startTime === 7) {
-        // }
+            // Check if player has hit any obstacle or the screen on the left/right
+            this.checkCollisions();
+            this.checkTime();
 
-        // Check if bonus life has been won
-        this.checkIfBonusWon();
+            // Check if it's time to display the bonus
+            // if (this.timeScore - this.bonus.startTime === 7) {
+            // }
 
-        // Check if player made it to the other side
-        this.win();
-        
-        // Stop the game if won/lost
-        if (!this.gameIsOver && !this.gameIsWon) {
+            // Check if bonus life has been won
+            this.checkIfBonusWon();
+
+            // Check if player made it to the other side
+            this.win();
+
+            // Print lives icons
+            this.printLives(); 
+
+            // Print time in seconds
+            this.printTime();
+            
+            // Stop the game if won/lost
+            if (!this.gameIsOver && !this.gameIsWon) {
+                window.requestAnimationFrame(loop);
+            }
+        } else {
+            console.log("Game is on pause");
             window.requestAnimationFrame(loop);
         }
-
-        // Print lives icons
-        this.printLives(); 
-
-        // Print time in seconds
-        this.printTime();
     }.bind(this);
 
     window.requestAnimationFrame(loop);
@@ -203,11 +220,11 @@ Game.prototype.checkCollisions = function() {
         if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
             console.log('COLLISION');
             // crash sound
-            this.crash.currentTime = 0;
-            this.crash.volume = 0.2;
-            this.crash.play();
+            this.crashSound.currentTime = 0;
+            this.crashSound.volume = 0.2;
+            this.crashSound.play();
 
-            // remove live
+            // remove life
             this.player.removeLife();
             console.log('Lives:', this.player.lives);
 
@@ -227,6 +244,12 @@ Game.prototype.checkIfBonusWon = function() {
     
         if (this.player.catchedBonus(this.bonus)) {
             console.log('BONUS CATCH');
+            // bonus sound
+            this.bonusSound.currentTime = 0;
+            this.bonusSound.volume = 0.2;
+            this.bonusSound.play();
+
+            // add life
             this.player.addLife();
             console.log('Lives:', this.player.lives);
     

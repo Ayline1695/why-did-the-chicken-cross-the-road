@@ -102,9 +102,11 @@ function main() {
     // -- game over screen
     function createGameOverScreen() {
         gameOverScreen = buildDom(`
-        <main class="transition-screen">
-            <h1>Game over</h1>
-            <p>You just killed an innocent chicken</p>
+        <main class="transition-screen blood">
+            <div>
+                <h1>Game over</h1>
+                <p>You just killed an innocent chicken</p>
+            </div>
             <button>Restart</button>
         </main>
     `);

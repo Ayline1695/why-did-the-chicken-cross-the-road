@@ -20,7 +20,7 @@ function Player(canvas, ctx) {
     this.playerImageRight.src = "./assets/img/chicken-right.png";
     this.playerImageLeft.src = "./assets/img/chicken-left.png";
     this.playerImage = this.playerImageUp;
-    this.stepSound = new Audio ("./assets/audio/chicken-step.wav");
+    this.stepSound = new Audio ("./assets/audio/chicken-walk.wav");
 }
 
 
@@ -57,7 +57,7 @@ Player.prototype.move = function(direction) {
 
     // Player sound in every move
     this.stepSound.currentTime = 0;
-    this.stepSound.volume = 0.1;
+    this.stepSound.volume = 0.2;
     this.stepSound.play();
 
     switch (direction) { 
