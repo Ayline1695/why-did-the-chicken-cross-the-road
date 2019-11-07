@@ -105,8 +105,7 @@ function main() {
         <main class="transition-screen">
             <h1>Game over</h1>
             <p>You just killed an innocent chicken</p>
-            <button class="restart">Play again</button>
-            <button class="new-player">New player</button>
+            <button>Restart</button>
         </main>
     `);
     
@@ -169,8 +168,7 @@ function main() {
                     </tbody>
                 </table>
             </div>
-            <button class="restart">Play again</button>
-            <button class="new-player">New player</button>
+            <button>Restart</button>
         </main>
     `);
 
@@ -180,7 +178,7 @@ function main() {
             startGame(name);
         });
 
-        // // restart the game on 'enter' keypress
+        // restart the game on 'enter' keypress
         function startOnEnter() {
             if (event.keyCode === 13) { // 13 is enter
                 document.body.removeEventListener('keydown',startOnEnter);
