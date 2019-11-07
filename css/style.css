@@ -53,17 +53,19 @@ table {
 
 /* ---- typography ---- */
 
-@font-face {
+@import url(//db.onlinewebfonts.com/c/e91cfb72ba9694aa6853e675383b04c2?family=pixelmix);
+
+/* @font-face {
     font-family: 'pixelmixregular';
     src: url('../assets/fonts/pixelmix-webfont.woff2') format('woff2'),
          url('../assets/fonts/pixelmix-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 body {
     color: #111;
-    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
+    font-family: "pixelmix", Helvetica, Arial, sans-serif;
     font-size: 16px;
     /* line-height: 147%; */
 }
