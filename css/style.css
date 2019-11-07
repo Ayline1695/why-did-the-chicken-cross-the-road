@@ -54,15 +54,11 @@ table {
 /* ---- typography ---- */
 
 @font-face {
-    font-family: "Open Sans";
-    src: url("../assets/fonts/pixelmix.ttf") format("ttf"),
-    url("../assets/fonts/pixelmix_bold.ttf") format("ttf");
-}
-
-@font-face {
-    font-family: "Open Sans";
-    src: url("../assets/fonts/TypoLayer-MainLayer.ttf") format("ttf"),
-    url("../assets/fonts/TypoLayer-InferiorLayer.ttf") format("ttf");
+    font-family: 'pixelmixregular';
+    src: url('../assets/fonts/pixelmix-webfont.woff2') format('woff2'),
+         url('../assets/fonts/pixelmix-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
