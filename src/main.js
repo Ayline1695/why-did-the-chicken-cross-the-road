@@ -76,7 +76,8 @@ function main() {
                     <canvas></canvas>
                     <div class="instructions">
                         <p>This is Chicky.</p>
-                        <p>Help her to get <br>to the other <br>side in less <br>than 2 min!</p>
+                        <p>Help her to get <br>to the other <br>side in less <br>than 1 min!</p> 
+                        <p>Use your arrow<br> keys to move<br> the chicken.</p>
                     </div>
                     <div class="timer">
                         <span class="label">Time: </span>
