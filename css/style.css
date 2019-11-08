@@ -128,7 +128,7 @@ main.transition-screen h1 {
 }
 
 #register-name form input {
-    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
+    font-family: 'pixelmixregular', 'joystixmonospace', 'pixelscreennormal', Helvetica, Arial, sans-serif;
     font-size: 18px;
     text-align: center;
     padding: 10px 0;
@@ -137,7 +137,7 @@ main.transition-screen h1 {
 }
 
 button {
-    font-family: "Pixelmix", Helvetica, Arial, sans-serif;
+    font-family:'pixelmixregular', 'joystixmonospace', 'pixelscreennormal', Helvetica, Arial, sans-serif;
     font-size: 18px;
     text-transform: uppercase;
     margin-top: 30px;
@@ -168,8 +168,8 @@ main.container {
 }
 
 main.container .instructions {
-    margin-top: -460px;
-    margin-left: -250px;
+    margin-top: -75%;
+    margin-left: -40%;
     font-size: 16px;
 }
 
@@ -179,7 +179,7 @@ main.container .instructions p {
 
 main.container .timer {
     margin-top: 20px;
-    margin-left: -250px;
+    margin-left: -40%;
 }
 
 .canvas-container {
