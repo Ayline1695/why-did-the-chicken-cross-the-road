@@ -10,7 +10,6 @@ function Player(canvas, ctx) {
     this.x = canvas.width / 2.2;
     this.y = canvas.height - 60;
     this.direction = 'up';
-    this.timeScore = 0;
     this.playerImageUp = new Image();
     this.playerImageDown = new Image();
     this.playerImageRight = new Image();

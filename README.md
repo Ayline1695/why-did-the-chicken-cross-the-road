@@ -17,6 +17,7 @@ The game is won whenever the player makes it to the other side.
 3. game.js
 4. player.js
 5. obstacle.js
+6. bonus.js
 
 ### 1. index.html file
 
@@ -35,49 +36,77 @@ The game is won whenever the player makes it to the other side.
 - canvas
 - ctx
 - player
+- name
 - obstacles
-- goalLine
+- otherSide
+- gameIsOver
+- gameIsWon
+- bonus
+- loopCount
 - timeScore
+- pause
 
 **Methods**
 - start
+- startLoop
 - checkCollision
 - checkOtherSide
-- gameOver
+- checkIfBonusWon
+- checkTime
 - win
-- updateScore
+- gameWon / gameOver
+- printLives
+- printTime
 
 ### 4. Player Constructor
 
 **Properties**
+- canvas
+- ctx
 - x position
 - y position
 - width
 - height
+- lives
 - image
 - direction
-- speed
-- lives
 
 **Methods**
-- setDirection
-- updateLives
-- didCollide
-- handleScreenCollision
-- removeLife
 - draw
+- move
+- collidedWithObstacle
+- collidedWithScreen
+- catchedBonus
+- removeLife
+- addLife
 
 ### 5. Obstacle Constructor
 
 **Properties**
+- canvas
+- ctx
 - x position
 - y position
 - width
 - height
-- image
 - row
 - speed
 - direction
+- image
+
+**Methods**
+- draw
+- move
+
+### 6. Bonus Constructor
+
+**Properties**
+- canvas
+- ctx
+- size
+- x position
+- y position
+- image
 
 **Methods**
 - draw
@@ -90,13 +119,13 @@ The game is won whenever the player makes it to the other side.
   - Goes to gameScreen when Start button is clicked
 - gameScreen
   - Game running while lives > 0
-  - Goes to gameoverScreen if lives < 0
-  - Goes to winScreen if Players x position <= goalLine
+  - Goes to gameoverScreen if lives < 0 or if time > 1min
+  - Goes to winScreen if Players x position <= 40 ("the other side")
 - gameoverScreen
   - Shows Game Over message and Restart button
   - Goes back to Game Screen when Restart button is clicked
 - winScreen
-  - Shows Win message, time score and Restart button
+  - Shows Win message, random quote, time score, scoreboard and Restart button
   - Goes back to Game Screen when Restart button is clicked
 
 
@@ -112,17 +141,22 @@ The game is won whenever the player makes it to the other side.
 - Create Obstacle constructor
 - Draw obstacles in game.js
 - Move obstacles in game.js
-- Move player  in game.js
+- Move player in game.js
 - Check Collisions  in game.js
 - Check game result in game.js
+- Add time and print it in game.js
+- Create bonus constructor and check bonus in game.js
+- Create scoreboard in main.js
+- Pause game in game.js
+- Add audios, img and fonts
 
 
 ## Backlog
-- Time limit (must cross in less than 2 min)
-- Space limit (looses a life if leaves the screen)
+- Time limit (must cross in less than 1 min)
 - Bonus life (extra life if eats a randomly generated corn)
+- Username registration and scoreboard (to compete again other players)
+- Pause game
 - Sounds and visual effects (when collides, looses or wins)
-- User registration and scoreboard (to compete again other players)
 
 
 ## Links
@@ -132,10 +166,9 @@ The game is won whenever the player makes it to the other side.
 
 
 ### Git
-[Link Repo](https://github.com/caprosset/why-did-the-chicken-cross-the-road)
-[Link Deploy](http://github.com) - not available yet
-
+[Link Repo](https://github.com/caprosset/why-did-the-chicken-cross-the-road) -
+[Link Deploy](https://caprosset.github.io/why-did-the-chicken-cross-the-road/)
 
 ### Slides
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com) - not available yet
+[Link Slides.com](https://docs.google.com/presentation/d/1sd0kD1USru5METruDBION3qVaVu6O19CvSCoMSgvj7E/edit?usp=sharing)

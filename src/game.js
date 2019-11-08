@@ -6,7 +6,7 @@ function Game(name) {
     this.ctx = null;
     this.obstacles = [];
     this.player = null;
-    this.otherSide = null;
+    this.otherSide = 40;
     this.gameIsOver = false;
     this.gameIsWon = false;
     this.gameScreen = null;
@@ -18,7 +18,7 @@ function Game(name) {
     this.lives = new Image();
     this.lives.src = './assets/img/chicken-life.png';
     this.bonus = null;
-    this.bonusSound = new Audio ('./assets/audio/bonus.wav')
+    this.bonusSound = new Audio ('./assets/audio/bonusSound.wav')
     this.crashSound = new Audio ('./assets/audio/chicken-crash.wav');
 }
 
@@ -188,7 +188,7 @@ Game.prototype.createObstacles = function () {
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 6, 1, 550 - i, 180));
+        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1, 6, 1, 550 - i, 180));
     }
 
     for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
@@ -261,7 +261,7 @@ Game.prototype.checkIfBonusWon = function() {
 
 Game.prototype.checkTime = function() {
     // check if time is higher than 2min
-    if (this.timeScore > 120) {
+    if (this.timeScore > 60) {
         console.log('TIME OVER');
         this.player.removeLife();
         console.log('Lives:', this.player.lives);
@@ -301,7 +301,7 @@ Game.prototype.gameWon = function() {
 
 
 Game.prototype.win = function() {
-    if (this.player.y < 40) {
+    if (this.player.y < this.otherSide) {
         console.log('YOU HAVE WON');
         this.gameWon();
     }
