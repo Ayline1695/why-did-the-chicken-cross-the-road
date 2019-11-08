@@ -169,8 +169,8 @@ main.container {
 
 main.container .instructions {
     margin-top: -85%;
-    margin-left: -80%;
-    font-size: 1.2rem;
+    margin-left: -40%;
+    font-size: 1rem;
 }
 
 main.container .instructions p {
@@ -179,8 +179,8 @@ main.container .instructions p {
 
 main.container .timer {
     margin-top: 20px;
-    margin-left: -80%;
-    font-size: 1.2rem;
+    margin-left: -40%;
+    font-size: 1rem;
 }
 
 .canvas-container {
