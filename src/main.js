@@ -48,18 +48,18 @@ function main() {
         });
 
         // start the game on 'enter' keypress
-        function startOnEnter() {
-            if (event.keyCode === 13) {
-                console.log('enter'); // 13 is enter
-                document.body.removeEventListener('keydown', startOnEnter);
-                name = startScreen.querySelector('#username').value;
-            if(name === '') {
-                name = 'ANONYMOUS CHICKEN'
-            }
-                startGame(name);
-            }
-        }
-        document.body.addEventListener('keydown', startOnEnter);
+        // function startOnEnter() {
+        //     if (event.keyCode === 13) {
+        //         console.log('enter'); // 13 is enter
+        //         document.body.removeEventListener('keydown', startOnEnter);
+        //         name = startScreen.querySelector('#username').value;
+        //     if(name === '') {
+        //         name = 'ANONYMOUS CHICKEN'
+        //     }
+        //         startGame(name);
+        //     }
+        // }
+        // document.body.addEventListener('keydown', startOnEnter);
     }
 
 
@@ -119,13 +119,13 @@ function main() {
     }); 
     
     // restart the game on 'enter' keypress
-    function startOnEnter() {
-        if (event.keyCode === 13) { // 13 is enter
-            document.body.removeEventListener('keydown', startOnEnter);
-            startGame(name);
-        }
-    }
-    document.body.addEventListener('keydown', startOnEnter);
+    // function startOnEnter() {
+    //     if (event.keyCode === 13) { // 13 is enter
+    //         document.body.removeEventListener('keydown', startOnEnter);
+    //         startGame(name);
+    //     }
+    // }
+    // document.body.addEventListener('keydown', startOnEnter);
     
     document.body.appendChild(gameOverScreen);
     }
@@ -182,13 +182,13 @@ function main() {
         });
 
         // restart the game on 'enter' keypress
-        function startOnEnter() {
-            if (event.keyCode === 13) { // 13 is enter
-                document.body.removeEventListener('keydown',startOnEnter);
-                startGame(name);
-            }
-        }
-        document.body.addEventListener('keydown', startOnEnter);
+        // function startOnEnter() {
+        //     if (event.keyCode === 13) { // 13 is enter
+        //         document.body.removeEventListener('keydown',startOnEnter);
+        //         startGame(name);
+        //     }
+        // }
+        // document.body.addEventListener('keydown', startOnEnter);
 
         // Store player's name and corresponding timescore into an array
         var scoreArray;
