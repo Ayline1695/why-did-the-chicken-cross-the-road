@@ -220,10 +220,12 @@ Game.prototype.checkCollisions = function() {
         if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
             console.log('COLLISION');
             // crash sound
-            this.crashSound.currentTime = 0;
-            this.crashSound.volume = 0.2;
-            this.crashSound.play();
-
+            if(this.player.lives > 1) {
+                this.crashSound.currentTime = 0;
+                this.crashSound.volume = 0.2;
+                this.crashSound.play();
+            }
+            
             // remove life
             this.player.removeLife();
             console.log('Lives:', this.player.lives);

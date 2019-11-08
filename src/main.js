@@ -284,8 +284,17 @@ function main() {
 
         if(game.gameIsWon) {
             console.log('YOU ARE A WINNER');
+            var victorySound = new Audio ('./assets/audio/chicken-victory.wav');
+            victorySound.currentTime = 0;
+            victorySound.volume = 0.2;
+            victorySound.play();
             createWinScreen(name, timeScore);
         } else {
+            console.log('YOU ARE A LOOSER');
+            var gameOverSound = new Audio ('./assets/audio/chicken-smashed.wav');
+            gameOverSound.currentTime = 0;
+            gameOverSound.volume = 0.5;
+            gameOverSound.play();
             createGameOverScreen();
         }
         
