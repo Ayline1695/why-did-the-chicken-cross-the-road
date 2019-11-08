@@ -104,7 +104,7 @@ function main() {
         gameOverScreen = buildDom(`
         <main class="transition-screen blood">
             <div>
-                <h1><img src="../assets/img/gameover-blood.png" alt="game over"></h1>
+                <h1><img src="./assets/img/gameover-blood.png" alt="game over"></h1>
                 <p>You just killed<br> an innocent chicken.</p>
             </div>
             <button>Restart</button>
@@ -120,7 +120,7 @@ function main() {
     // restart the game on 'enter' keypress
     function startOnEnter() {
         if (event.keyCode === 13) { // 13 is enter
-            document.body.removeEventListener('keydown',startOnEnter);
+            document.body.removeEventListener('keydown', startOnEnter);
             startGame(name);
         }
     }
@@ -141,7 +141,7 @@ function main() {
     function createWinScreen(name, timeScore) {
         winScreen = buildDom(`
         <main class="transition-screen">
-            <h1><img src="../assets/img/youwin.png" alt="you win"></h1>
+            <h1><img src="./assets/img/youwin.png" alt="you win"></h1>
             <div id="quote">
                 <h4>So, why did the chicken <br>cross the road?</h4>
                 <p id='answer'>Random answer here<p>
