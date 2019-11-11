@@ -1,249 +1,235 @@
 'use strict';
 
-function Game(name) {
-    this.name = name;
-    this.canvas = null;
-    this.ctx = null;
-    this.obstacles = [];
-    this.player = null;
-    this.otherSide = 40;
-    this.gameIsOver = false;
-    this.gameIsWon = false;
-    this.gameScreen = null;
-    this.loopCount = 0;
-    this.timeScore = 0;
-    this.pause = false;
-    this.background = new Image();
-    this.background.src = './assets/img/canvas-background.png';
-    this.lives = new Image();
-    this.lives.src = './assets/img/chicken-life.png';
-    this.bonus = null;
-    this.bonusSound = new Audio ('./assets/audio/bonusSound.wav')
-    this.crashSound = new Audio ('./assets/audio/chicken-crash.wav');
-}
+class Game {
+    constructor(name) {
+        this.name = name;
+        this.canvas = null;
+        this.ctx = null;
+        this.obstacles = [];
+        this.player = null;
+        this.otherSide = 40;
+        this.gameIsOver = false;
+        this.gameIsWon = false;
+        this.gameScreen = null;
+        this.loopCount = 0;
+        this.timeScore = 0;
+        this.pause = false;
+        this.background = new Image();
+        this.background.src = './assets/img/canvas-background.png';
+        this.lives = new Image();
+        this.lives.src = './assets/img/chicken-life.png';
+        this.bonus = null;
+        this.bonusSound = new Audio ('./assets/audio/bonusSound.wav')
+        this.crashSound = new Audio ('./assets/audio/chicken-crash.wav');
+    }
 
-
-Game.prototype.start = function() {
-    // Get the canvas element, create ctx, save canvas and ctx in the game object
-    this.canvasContainer = document.querySelector('.canvas-container');
-    this.canvas = document.querySelector('canvas');
-    this.ctx = this.canvas.getContext('2d');
-
-    // Set the canvas width and height
-    this.canvas.setAttribute('width', 600);
-    this.canvas.setAttribute('height', 600);
-
-    // Save reference to the time element
-    this.timerElement = this.gameScreen.querySelector('.timer .value');
-
-    // Add event listener for moving the player
-    this.handleKeyDown = function(event) {
-        if (event.key === 'ArrowUp') {
-            this.player.move('up');
-            console.log('UP');
-        } else if (event.key === 'ArrowDown') {
-            this.player.move('down');
-            console.log('DOWN');
-        } else if (event.key === 'ArrowLeft') {
-            this.player.move('left');
-            console.log('LEFT');
-        } else if (event.key === 'ArrowRight') {
-            this.player.move('right');
-            console.log('RIGHT');
-        } else if (event.keyCode === 32) {
-            if (this.pause === false) {
-                this.pause = true; 
-                console.log(this.pause);
-            } else {
-                this.pause = false; 
-                console.log(this.pause);
-            }
-        } 
-    };
-    document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
-
-    // Start the game loop
-    this.startLoop();
-}
-
-
-Game.prototype.startLoop = function() {
-    // Create instances of Player and Obstacle
-    this.player = new Player(this.canvas, this.ctx);
-    this.createObstacles();
-
-    // Create bonus instance every 10 seconds
-    var that = this;
-    var bonusInterval = setInterval( function() {
-        var bonusX = Math.floor(Math.random() * 500);
-        that.createBonus(bonusX, 3000);
-    }, 6000);
-
+    start() {
+        // Get the canvas element, create ctx, save canvas and ctx in the game object
+        this.canvasContainer = document.querySelector('.canvas-container');
+        this.canvas = document.querySelector('canvas');
+        this.ctx = this.canvas.getContext('2d');
     
-    var loop = function() {
-        // console.log('in loop');
+        // Set the canvas width and height
+        this.canvas.setAttribute('width', 600);
+        this.canvas.setAttribute('height', 600);
+    
+        // Save reference to the time element
+        this.timerElement = this.gameScreen.querySelector('.timer .value');
+    
+        // Add event listener for moving the player
+        this.handleKeyDown = event => {
+            if (event.key === 'ArrowUp') {
+                this.player.move('up');
+                console.log('UP');
+            } else if (event.key === 'ArrowDown') {
+                this.player.move('down');
+                console.log('DOWN');
+            } else if (event.key === 'ArrowLeft') {
+                this.player.move('left');
+                console.log('LEFT');
+            } else if (event.key === 'ArrowRight') {
+                this.player.move('right');
+                console.log('RIGHT');
+            } else if (event.keyCode === 32) {
+                if (this.pause === false) {
+                    this.pause = true; 
+                    console.log(this.pause);
+                } else {
+                    this.pause = false; 
+                    console.log(this.pause);
+                }
+            } 
+        };
+        document.body.addEventListener('keydown', this.handleKeyDown.bind(this));
+    
+        // Start the game loop
+        this.startLoop();
+    }
 
-        // check if game is not on pause 
-        if(this.pause === false) {
+    startLoop() {
+        // Create instances of Player and Obstacle
+        this.player = new Player(this.canvas, this.ctx);
+        this.createObstacles();
 
-            // Clear the canvas
-            this.clearCanvas();
+        // Create bonus instance every 10 seconds
+        const bonusInterval = setInterval( () => {
+            let bonusX = Math.floor(Math.random() * 500);
+            this.createBonus(bonusX, 3000);
+        }, 6000);
 
-            // Update the canvas with the state of player and obstacles
-            this.updateCanvas(); 
+        
+        let loop = () => {
+            // console.log('in loop');
 
-            // Draw obstacles and player
-            this.drawCanvas(); 
+            // check if game is not on pause 
+            if(this.pause === false) {
 
-            // Check if player has hit any obstacle or the screen on the left/right
-            this.checkCollisions();
-            this.checkTime();
+                // Clear the canvas
+                this.clearCanvas();
 
-            // Check if it's time to display the bonus
-            // if (this.timeScore - this.bonus.startTime === 7) {
-            // }
+                // Update the canvas with the state of player and obstacles
+                this.updateCanvas(); 
 
-            // Check if bonus life has been won
-            this.checkIfBonusWon();
+                // Draw obstacles and player
+                this.drawCanvas(); 
 
-            // Check if player made it to the other side
-            this.win();
+                // Check if player has hit any obstacle or the screen on the left/right
+                this.checkCollisions();
+                this.checkTime();
 
-            // Print lives icons
-            this.printLives(); 
+                // Check if it's time to display the bonus
+                // if (this.timeScore - this.bonus.startTime === 7) {
+                // }
 
-            // Print time in seconds
-            this.printTime();
-            
-            // Stop the game if won/lost
-            if (!this.gameIsOver && !this.gameIsWon) {
+                // Check if bonus life has been won
+                this.checkIfBonusWon();
+
+                // Check if player made it to the other side
+                this.win();
+
+                // Print lives icons
+                this.printLives(); 
+
+                // Print time in seconds
+                this.printTime();
+                
+                // Stop the game if won/lost
+                if (!this.gameIsOver && !this.gameIsWon) {
+                    window.requestAnimationFrame(loop);
+                }
+            } else {
+                console.log("Game is on pause");
                 window.requestAnimationFrame(loop);
             }
-        } else {
-            console.log("Game is on pause");
-            window.requestAnimationFrame(loop);
-        }
-    }.bind(this);
+        };
 
-    window.requestAnimationFrame(loop);
-}
-
-
-Game.prototype.drawCanvas = function () {
-     // Draw obstacles
-    this.obstacles.forEach(function (obstacle) { 
-        obstacle.draw();
-    });
-
-    // Draw player
-    // if(!this.player) {
-        this.player.draw();
-    // }
-
-    // Draw bonus 
-    if(this.bonus) {
-        this.bonus.draw();
+        window.requestAnimationFrame(loop);
     }
     
 
-}
+    drawCanvas() {
+        // Draw obstacles   
+        this.obstacles.forEach( obstacle => obstacle.draw() );
 
+        // Draw player
+        // if(!this.player) {
+            this.player.draw();
+        // }
 
-Game.prototype.updateCanvas = function () {
-    // Update obstacles position
-    this.obstacles.forEach(function (obstacle) { 
-        obstacle.move();
-    });
-
-    // Add background image to canvas area
-    this.ctx.drawImage(this.background, 0, 0, 600, 600); 
-}
-
-
-Game.prototype.clearCanvas = function () { 
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-}
-
-
-Game.prototype.createObstacles = function () {
-    // Canvas width divided by the number of obstacles and multiply for 200 (number of elements needed to keep up with 3 lives)
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1, 1, -1, 0 + i, 480)); // (canvas, ctx, speed, row, direction, x, y)
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 2, 1, 550 - i, 420));
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 3, -1, 0 + i, 360));
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 4, 1, 630 - i, 300));
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2.5, 5, -1, 0 + i, 240)); // (canvas, ctx, speed, row, direction, width, x, y)
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1, 6, 1, 550 - i, 180));
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 7, -1, 0 + i, 120));
-    }
-
-    for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
-        this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 8, 1, 630 - i, 60));
-    }
-}
-
-
-Game.prototype.createBonus = function(bonusX, clearBonusInterval) {
-    this.bonus= new Bonus(this.canvas, this.ctx, bonusX);
-
-    var startTime = this.timeScore;
-    // console.log(startTime);
-
-    // remove bonus after 4 seconds of being created 
-    var intervalId = setTimeout(() => {
-        this.bonus = null;
-    }, clearBonusInterval)
-}
-
-
-Game.prototype.checkCollisions = function() {
-    // check collision with obstacles
-    this.obstacles.forEach(function(obstacle) {
-        if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
-            console.log('COLLISION');
-            // crash sound
-            if(this.player.lives > 1) {
-                this.crashSound.currentTime = 0;
-                this.crashSound.volume = 0.2;
-                this.crashSound.play();
-            }
-            
-            // remove life
-            this.player.removeLife();
-            console.log('Lives:', this.player.lives);
-
-            if (this.player.lives > 0) {
-            // make the player come back to initial position when collided and lives > 0 
-            this.player.x = this.canvas.width / 2.2;
-            this.player.y = this.canvas.height - 60;
-            } else if (this.player.lives === 0) {
-                this.gameOver();
-            }
+        // Draw bonus 
+        if(this.bonus) {
+            this.bonus.draw();
         }
-    }, this);
-}
+    }
 
-
-Game.prototype.checkIfBonusWon = function() {
+    updateCanvas() {
+        // Update obstacles position
+        this.obstacles.forEach( obstacle => obstacle.move() );
     
+        // Add background image to canvas area
+        this.ctx.drawImage(this.background, 0, 0, 600, 600); 
+    }
+
+    clearCanvas() { 
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    createObstacles() {
+        // Canvas width divided by the number of obstacles and multiply for 200 (number of elements needed to keep up with 3 lives)
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1, 1, -1, 0 + i, 480)); // (canvas, ctx, speed, row, direction, x, y)
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 2, 1, 550 - i, 420));
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 3, -1, 0 + i, 360));
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 0.5, 4, 1, 630 - i, 300));
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2.5, 5, -1, 0 + i, 240)); // (canvas, ctx, speed, row, direction, width, x, y)
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1, 6, 1, 550 - i, 180));
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2.5) * 200; i += (this.canvas.width / 2.5)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 2, 7, -1, 0 + i, 120));
+        }
+    
+        for (var i = 0; i < (this.canvas.width / 2) * 200; i += (this.canvas.width / 2)) {
+            this.obstacles.push(new Obstacle(this.canvas, this.ctx, 1.5, 8, 1, 630 - i, 60));
+        }
+    }
+    
+    
+    createBonus(bonusX, clearBonusInterval) {
+        this.bonus= new Bonus(this.canvas, this.ctx, bonusX);
+    
+        var startTime = this.timeScore;
+        // console.log(startTime);
+    
+        // remove bonus after 4 seconds of being created 
+        var intervalId = setTimeout( () => {
+            this.bonus = null;
+        }, clearBonusInterval)
+    }
+    
+    checkCollisions() {
+        // check collision with obstacles
+        this.obstacles.forEach( obstacle => {
+            if (this.player.collidedWithObstacle(obstacle) || this.player.collidedWithScreen()) {
+                console.log('COLLISION');
+                // crash sound
+                if(this.player.lives > 1) {
+                    this.crashSound.currentTime = 0;
+                    this.crashSound.volume = 0.2;
+                    this.crashSound.play();
+                }
+                
+                // remove life
+                this.player.removeLife();
+                console.log('Lives:', this.player.lives);
+    
+                if (this.player.lives > 0) {
+                // make the player come back to initial position when collided and lives > 0 
+                this.player.x = this.canvas.width / 2.2;
+                this.player.y = this.canvas.height - 60;
+                } else if (this.player.lives === 0) {
+                    this.gameOver();
+                }
+            }
+        }, this);
+    }
+
+    checkIfBonusWon() { 
         if (this.player.catchedBonus(this.bonus)) {
             console.log('BONUS CATCH');
             // bonus sound
@@ -258,100 +244,91 @@ Game.prototype.checkIfBonusWon = function() {
             // make the bonus disappear to the left
             this.bonus.x = 0 - this.bonus.size;
         } 
-}
-
-
-Game.prototype.checkTime = function() {
-    // check if time is higher than 2min
-    if (this.timeScore > 60) {
-        console.log('TIME OVER');
-        this.player.removeLife();
-        console.log('Lives:', this.player.lives);
-
-        if (this.player.lives > 0) {
-        // make the player come back to initial position when collided and lives > 0 
-        this.player.x = this.canvas.width / 2.2;
-        this.player.y = this.canvas.height - 60;
-        } else if (this.player.lives === 0) {
-            this.gameOver();
+    }
+    
+    checkTime() {
+        // check if time is higher than 2min
+        if (this.timeScore > 60) {
+            console.log('TIME OVER');
+            this.player.removeLife();
+            console.log('Lives:', this.player.lives);
+    
+            if (this.player.lives > 0) {
+            // make the player come back to initial position when collided and lives > 0 
+            this.player.x = this.canvas.width / 2.2;
+            this.player.y = this.canvas.height - 60;
+            } else if (this.player.lives === 0) {
+                this.gameOver();
+            }
         }
     }
-}
 
-
-Game.prototype.passGameResult = function(callback) {
-    this.onGameOverCallback = callback;
-};
-
-
-Game.prototype.gameOver = function() {
-    // flag `gameIsOver = true` stops the loop
-    this.gameIsOver = true;
-
-    // call the gameOver function from `main` to show the right end screen
-    this.onGameOverCallback();
-}
-
-
-Game.prototype.gameWon = function() {
-    // flag `gameIsWon = true` stops the loop
-    this.gameIsWon = true;
-
-    // call the gameOver function from `main` to show the right end screen
-    this.onGameOverCallback();
-}
-
-
-Game.prototype.win = function() {
-    if (this.player.y < this.otherSide) {
-        console.log('YOU HAVE WON');
-        this.gameWon();
+    passGameResult(callback) {
+        this.onGameOverCallback = callback;
+    };
+    
+    gameOver() {
+        // flag `gameIsOver = true` stops the loop
+        this.gameIsOver = true;
+    
+        // call the gameOver function from `main` to show the right end screen
+        this.onGameOverCallback();
     }
-}
 
-
-Game.prototype.printTime = function() {
-    // count the loops
-    this.loopCount++;
-
-    // every time we reach a second (considering that 60 loops = 1 second)
-    if (this.loopCount % 60 === 0) { 
-        // convert the time in seconds
-        this.timeScore = Math.floor(this.loopCount / 60);
-        // and print the seconds to the game screen
-        this.timerElement.innerHTML = this.timeScore + ' seconds';
+    gameWon() {
+        // flag `gameIsWon = true` stops the loop
+        this.gameIsWon = true;
+    
+        // call the gameOver function from `main` to show the right end screen
+        this.onGameOverCallback();
     }
-}
 
-
-Game.prototype.printLives = function () { 
-    // print lives icons depending on how many lives are remaining
-    if (this.player.lives === 5) {
-        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 65, 555, 25, 30)
-        this.ctx.drawImage(this.lives, 95, 555, 25, 30)
-        this.ctx.drawImage(this.lives, 125, 555, 25, 30)
-    } else if (this.player.lives === 4) {
-        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 65, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 95, 555, 25, 30);
-    } else if (this.player.lives === 3) {
-        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 65, 555, 25, 30)
-    } else if (this.player.lives === 2) {
-        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
-        this.ctx.drawImage(this.lives, 35, 555, 25, 30);
-    } else {
-        this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+    win() {
+        if (this.player.y < this.otherSide) {
+            console.log('YOU HAVE WON');
+            this.gameWon();
+        }
     }
+
+    printTime() {
+        // count the loops
+        this.loopCount++;
+    
+        // every time we reach a second (considering that 60 loops = 1 second)
+        if (this.loopCount % 60 === 0) { 
+            // convert the time in seconds
+            this.timeScore = Math.floor(this.loopCount / 60);
+            // and print the seconds to the game screen
+            this.timerElement.innerHTML = this.timeScore + ' seconds';
+        }
+    }
+    
+    printLives() { 
+        // print lives icons depending on how many lives are remaining
+        if (this.player.lives === 5) {
+            this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 65, 555, 25, 30)
+            this.ctx.drawImage(this.lives, 95, 555, 25, 30)
+            this.ctx.drawImage(this.lives, 125, 555, 25, 30)
+        } else if (this.player.lives === 4) {
+            this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 65, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 95, 555, 25, 30);
+        } else if (this.player.lives === 3) {
+            this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 65, 555, 25, 30)
+        } else if (this.player.lives === 2) {
+            this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+            this.ctx.drawImage(this.lives, 35, 555, 25, 30);
+        } else {
+            this.ctx.drawImage(this.lives, 5, 555, 25, 30);
+        }
+    }
+
+    destroyGameScreen() {
+        this.gameScreen.remove();
+    };
 }
-
-
-Game.prototype.destroyGameScreen = function() {
-    this.gameScreen.remove();
-};
-
-

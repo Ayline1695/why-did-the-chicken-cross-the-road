@@ -1,14 +1,14 @@
 'use strict';
 
 
-function buildDom(htmlString) {
+const buildDom = htmlString => {
     var div = document.createElement('div');
     div.innerHTML = htmlString;
     return div.children[0];
 };
 
 
-function main() {
+const main = () => {
     var game; // instance of the Game
     var startScreen; 
     var gameOverScreen;
@@ -17,7 +17,7 @@ function main() {
 
 
     // -- start screen
-    function createStartScreen() {
+    const createStartScreen = () => {
         startScreen = buildDom(`
             <main class="transition-screen">
                 <h1>Why did <br>the chicken <br>cross the road?</h1>
@@ -39,7 +39,7 @@ function main() {
         var startButton = startScreen.querySelector('button');
         console.log(startButton);
 
-        startButton.addEventListener('click', function() {
+        startButton.addEventListener('click', () => {
             name = startScreen.querySelector('#username').value;
             if(name === '') {
                 name = 'ANONYMOUS CHICKEN'
@@ -48,7 +48,7 @@ function main() {
         });
 
         // start the game on 'enter' keypress
-        // function startOnEnter() {
+        // let startOnEnter = () => {
         //     if (event.keyCode === 13) {
         //         console.log('enter'); // 13 is enter
         //         document.body.removeEventListener('keydown', startOnEnter);
@@ -62,14 +62,12 @@ function main() {
         // document.body.addEventListener('keydown', startOnEnter);
     }
 
+    const removeStartScreen = () => startScreen.remove();
 
-    function removeStartScreen() {
-        startScreen.remove();
-    }
 
 
     // -- game screen
-    function createGameScreen() {
+    const createGameScreen = () => {
         var gameScreen = buildDom(`
             <main class="game container">
                 <div class="canvas-container">
@@ -93,33 +91,29 @@ function main() {
         return gameScreen;
     }
 
-    function removeGameScreen() {
-        // calls a Game method that removes the screen
-        game.destroyGameScreen();
-    }
-
-
+    // calls a Game method that removes the screen
+    const removeGameScreen = () => game.destroyGameScreen();
+        
+        
 
     // -- game over screen
-    function createGameOverScreen() {
+    const createGameOverScreen = () => {
         gameOverScreen = buildDom(`
-        <main class="transition-screen blood">
-            <div>
-                <h1><img src="./assets/img/gameover-blood.png" alt="game over"></h1>
-                <p>You just killed<br> an innocent chicken.</p>
-            </div>
-            <button>Restart</button>
-        </main>
-    `);
+            <main class="transition-screen blood">
+                <div>
+                    <h1><img src="./assets/img/gameover-blood.png" alt="game over"></h1>
+                    <p>You just killed<br> an innocent chicken.</p>
+                </div>
+                <button>Restart</button>
+            </main>
+        `);
     
-    // restart the game on 'click'
-    var button = gameOverScreen.querySelector('button');
-    button.addEventListener('click', function() {
-        startGame(name);
-    }); 
+        // restart the game on 'click'
+        var button = gameOverScreen.querySelector('button');
+        button.addEventListener('click', () => startGame(name) ); 
     
     // restart the game on 'enter' keypress
-    // function startOnEnter() {
+    // let startOnEnter = () => {
     //     if (event.keyCode === 13) { // 13 is enter
     //         document.body.removeEventListener('keydown', startOnEnter);
     //         startGame(name);
@@ -127,10 +121,10 @@ function main() {
     // }
     // document.body.addEventListener('keydown', startOnEnter);
     
-    document.body.appendChild(gameOverScreen);
+        document.body.appendChild(gameOverScreen);
     }
 
-    function removeGameOverScreen() {
+    const removeGameOverScreen = () => {
         if (gameOverScreen) {
             gameOverScreen.remove();
         }
@@ -139,50 +133,48 @@ function main() {
 
 
     // -- win screen
-    function createWinScreen(name, timeScore) {
+    const createWinScreen = (name, timeScore) => {
         winScreen = buildDom(`
-        <main class="transition-screen">
-            <h1><img src="./assets/img/youwin.png" alt="you win"></h1>
-            <div id="quote">
-                <h4>So, why did the chicken <br>cross the road?</h4>
-                <p id='answer'>Random answer here<p>
-                <p id='author'>The author of the random answer here<p>
-            </div>
-            <div id="scores">
-                <p>Your time: <span></span></p>
-                <table id="scoretable">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td id='name1'></td><td id='time1'></td></tr>
-                        <tr><td id='name2'></td><td id='time2'></td></tr>
-                        <tr><td id='name3'></td><td id='time3'></td></tr>
-                        <tr><td id='name4'></td><td id='time4'></td></tr>
-                        <tr><td id='name5'></td><td id='time5'></td></tr>
-                        <tr><td id='name6'></td><td id='time6'></td></tr>
-                        <tr><td id='name7'></td><td id='time7'></td></tr>
-                        <tr><td id='name8'></td><td id='time8'></td></tr>
-                        <tr><td id='name9'></td><td id='time9'></td></tr>
-                        <tr><td id='name10'></td><td id='time10'></td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <button>Restart</button>
-        </main>
-    `);
+            <main class="transition-screen">
+                <h1><img src="./assets/img/youwin.png" alt="you win"></h1>
+                <div id="quote">
+                    <h4>So, why did the chicken <br>cross the road?</h4>
+                    <p id='answer'>Random answer here<p>
+                    <p id='author'>The author of the random answer here<p>
+                </div>
+                <div id="scores">
+                    <p>Your time: <span></span></p>
+                    <table id="scoretable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td id='name1'></td><td id='time1'></td></tr>
+                            <tr><td id='name2'></td><td id='time2'></td></tr>
+                            <tr><td id='name3'></td><td id='time3'></td></tr>
+                            <tr><td id='name4'></td><td id='time4'></td></tr>
+                            <tr><td id='name5'></td><td id='time5'></td></tr>
+                            <tr><td id='name6'></td><td id='time6'></td></tr>
+                            <tr><td id='name7'></td><td id='time7'></td></tr>
+                            <tr><td id='name8'></td><td id='time8'></td></tr>
+                            <tr><td id='name9'></td><td id='time9'></td></tr>
+                            <tr><td id='name10'></td><td id='time10'></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button>Restart</button>
+            </main>
+        `);
 
         // restart the game on 'click'
         var button = winScreen.querySelector('button');
-        button.addEventListener('click', function() {
-            startGame(name);
-        });
+        button.addEventListener('click', () => startGame(name) );
 
         // restart the game on 'enter' keypress
-        // function startOnEnter() {
+        // let startOnEnter = () => {
         //     if (event.keyCode === 13) { // 13 is enter
         //         document.body.removeEventListener('keydown',startOnEnter);
         //         startGame(name);
@@ -210,9 +202,7 @@ function main() {
 
         // convert it back into an array in order to get data from local storage
         var scoreBoard = JSON.parse(localStorage.getItem('scoreArray'));
-        scoreBoard.sort(function(a,b){
-            return a.score - b.score;
-        });
+        scoreBoard.sort( (a,b) => a.score - b.score );
         console.log('SCOREBOARD', scoreBoard);
 
         // print the best 5 scores into a table
@@ -257,7 +247,7 @@ function main() {
 
     
     // -- setting the game state
-    function startGame(name) {
+    const startGame = name => {
         // first remove the start screen
         removeStartScreen();
 
@@ -279,7 +269,7 @@ function main() {
     }
 
 
-    function endGame(name, timeScore) {
+    const endGame = (name, timeScore) => {
         console.log('GAME ENDED');
         removeGameScreen();
 
@@ -322,14 +312,10 @@ function main() {
     ['Joseph Stalin', 'I don\'t care. Catch it. I need its eggs to make my omelet.']
 ];
 
-function getRandomAnswer(index) {
-    //return the random sentence
-    return answers[index][1];   
-}
+//return the random sentence
+const getRandomAnswer = index => answers[index][1];   
 
-function getRandomAuthor(index) {
-    //return the random author
-    return answers[index][0];   
-}
+//return the random author
+const getRandomAuthor = index => answers[index][0];   
 
 window.addEventListener('load', main);
